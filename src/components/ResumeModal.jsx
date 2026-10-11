@@ -98,6 +98,12 @@ export default function ResumeModal({ isOpen, onClose }) {
                         github.com/rahmatullahcodes
                       </a>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <ExternalLink className="w-4 h-4 text-sky-600 shrink-0" />
+                      <a href={personalInfo.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-sky-600">
+                        youtube.com/@TechnicalGuddu01
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -16,7 +16,8 @@ import {
   Cpu, 
   Globe, 
   ShieldCheck, 
-  Zap 
+  Zap,
+  Youtube
 } from 'lucide-react';
 import TiltCard from './TiltCard';
 import { personalInfo } from '../data/portfolioData';
@@ -174,6 +175,18 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
                 className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-sky-500/20 text-slate-400 hover:text-sky-300 border border-slate-800 hover:border-sky-500/50 transition-all shadow-sm"
               >
                 <Github className="w-4 h-4" />
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.15, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                href={personalInfo.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube Channel - Technical Guddu"
+                className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 border border-slate-800 hover:border-rose-500/50 transition-all shadow-sm"
+                title="YouTube Channel (@TechnicalGuddu01)"
+              >
+                <Youtube className="w-4 h-4" />
               </motion.a>
               <motion.button
                 whileHover={{ scale: 1.15, y: -2 }}

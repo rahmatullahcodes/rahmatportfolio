@@ -21,7 +21,8 @@ import {
   Database,
   Smartphone,
   TrendingUp,
-  HelpCircle
+  HelpCircle,
+  Youtube
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { personalInfo } from '../data/portfolioData';
@@ -299,6 +300,26 @@ export default function Contact({ prefilledService, onShowToast }) {
                   </div>
                   <span className="text-xs text-sky-400 group-hover:translate-x-1 transition-transform font-bold">
                     Review Code →
+                  </span>
+                </a>
+
+                <a
+                  href={personalInfo.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/60 hover:bg-slate-850 border border-slate-800/80 hover:border-rose-500/50 text-slate-200 hover:text-white hover:scale-[1.02] transition-all group shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-rose-500/10 text-rose-400 group-hover:scale-110 transition-transform">
+                      <Youtube className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs sm:text-sm font-semibold block">YouTube Channel</span>
+                      <span className="text-[11px] text-slate-400 font-mono">@TechnicalGuddu01</span>
+                    </div>
+                  </div>
+                  <span className="text-xs text-rose-400 group-hover:translate-x-1 transition-transform font-bold">
+                    Visit Channel →
                   </span>
                 </a>
 

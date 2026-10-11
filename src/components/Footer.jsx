@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Heart, Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import { ArrowUp, Heart, Github, Linkedin, Mail, ExternalLink, Youtube } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export default function Footer() {
@@ -55,6 +55,16 @@ export default function Footer() {
                 className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 border border-slate-800 transition-colors"
               >
                 <Github className="w-4 h-4" />
+              </a>
+              <a
+                href={personalInfo.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube Channel (@TechnicalGuddu01)"
+                title="YouTube (@TechnicalGuddu01)"
+                className="p-2 rounded-lg bg-slate-900 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 border border-slate-800 hover:border-rose-500/40 transition-colors"
+              >
+                <Youtube className="w-4 h-4" />
               </a>
               <a
                 href={`mailto:${personalInfo.email}`}
