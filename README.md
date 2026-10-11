@@ -131,8 +131,8 @@ Follow these straightforward steps to deploy your portfolio to [Vercel](https://
    - **Output Directory**: `dist`
 5. **Environment Variables**:
    Under **Environment Variables**, add the following two keys so the contact form can dispatch emails in production:
-   - **`GMAIL_USER`**: `mdrahmatullahquraishi@gmail.com`
-   - **`GMAIL_APP_PASSWORD`**: `ataekazlfggpkvcr`
+   - **`GMAIL_USER`**: `your_email@gmail.com`
+   - **`GMAIL_APP_PASSWORD`**: `your_16_char_google_app_password`
 6. Click **"Deploy"**.
 
 Within 30–60 seconds, Vercel will complete the build and assign you a live production URL (e.g., `https://rahmatullah-portfolio.vercel.app`).
@@ -154,8 +154,8 @@ The project uses serverless email routing. Credentials are kept private in `.env
 
 | Variable | Description | Value |
 | :--- | :--- | :--- |
-| `GMAIL_USER` | Your Gmail address where project inquiries will be sent | `mdrahmatullahquraishi@gmail.com` |
-| `GMAIL_APP_PASSWORD` | 16-character Google App Password for SMTP authentication | `ataekazlfggpkvcr` |
+| `GMAIL_USER` | Your Gmail address where project inquiries will be sent | `your_email@gmail.com` |
+| `GMAIL_APP_PASSWORD` | 16-character Google App Password for SMTP authentication | `your_app_password_here` |
 
 *Security Notice: The app password is executed strictly on the backend / serverless runtime (`api/contact.js`) and is NEVER exposed in the client-side JavaScript bundle.*
 
