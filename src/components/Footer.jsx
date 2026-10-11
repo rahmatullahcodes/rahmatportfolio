@@ -97,16 +97,18 @@ export default function Footer() {
                 <li><a href="#about" className="hover:text-white transition-colors">About Me</a></li>
                 <li><a href="#skills" className="hover:text-white transition-colors">Tech Stack</a></li>
                 <li><a href="#services" className="hover:text-white transition-colors">Services</a></li>
+                <li><a href="#process" className="hover:text-white transition-colors">How I Work</a></li>
               </ul>
             </div>
             <div>
               <span className="font-bold text-slate-200 uppercase tracking-wider block mb-3">
-                Portfolio
+                Portfolio & Trust
               </span>
               <ul className="space-y-2 text-slate-400">
                 <li><a href="#projects" className="hover:text-white transition-colors">Featured Projects</a></li>
+                <li><a href="#reviews" className="hover:text-white transition-colors">Client Reviews</a></li>
                 <li><a href="#experience" className="hover:text-white transition-colors">Work Experience</a></li>
-                <li><a href="#education" className="hover:text-white transition-colors">Education (IGNOU)</a></li>
+                <li><a href="#faq" className="hover:text-white transition-colors">FAQs</a></li>
                 <li><a href="#contact" className="hover:text-white transition-colors">Inquiry Form</a></li>
               </ul>
             </div>

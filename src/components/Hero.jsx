@@ -52,14 +52,29 @@ const techBadges = [
   { name: 'Express.js', icon: '🚀', color: 'text-violet-400 bg-violet-950/70 border-violet-700/60 shadow-violet-500/10' }
 ];
 
+const statusMessages = [
+  "Available for Immediate Projects",
+  "Average Response Time < 2 Hours",
+  "100% On-Time Delivery Guarantee",
+  "Open for Freelance & Contracts"
+];
+
 export default function Hero({ onOpenResume, onCopyEmail }) {
   const [titleIdx, setTitleIdx] = useState(0);
+  const [statusIdx, setStatusIdx] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setTitleIdx(prev => (prev + 1) % rotatingTitles.length);
     }, 2800);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const statusTimer = setInterval(() => {
+      setStatusIdx(prev => (prev + 1) % statusMessages.length);
+    }, 3200);
+    return () => clearInterval(statusTimer);
   }, []);
 
   return (
@@ -79,22 +94,39 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
           {/* Left Column: Branding, Title, Tagline, CTAs */}
           <div className="lg:col-span-7 space-y-7">
             
-            {/* Pulsing Status Pill */}
+            {/* Dynamic Animated Status Pill */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-slate-300 text-xs shadow-inner hover:border-sky-500/60 transition-colors group cursor-default"
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-900/90 border border-slate-700/80 hover:border-sky-400/80 shadow-inner backdrop-blur-md transition-colors group cursor-default"
             >
-              <span className="relative flex h-2.5 w-2.5">
+              {/* Emerald Radar Beacon */}
+              <span className="relative flex h-2.5 w-2.5 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
               </span>
-              <span className="font-semibold text-slate-200">Open for Freelance & Full-Stack Contracts</span>
-              <span className="text-slate-600">•</span>
-              <span className="text-emerald-400 font-bold group-hover:text-emerald-300 transition-colors">Response &lt; 2 hrs</span>
-              <span className="text-slate-600 hidden sm:inline">•</span>
-              <span className="text-sky-400 font-bold group-hover:text-sky-300 transition-colors hidden sm:inline">{personalInfo.experienceYears} Years Exp</span>
+
+              {/* Dynamic Sliding Status Message */}
+              <div className="relative overflow-hidden inline-flex h-4 items-center min-w-[210px] sm:min-w-[230px]">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={statusIdx}
+                    initial={{ y: 14, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -14, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="text-xs font-semibold text-slate-200 whitespace-nowrap"
+                  >
+                    {statusMessages[statusIdx]}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+
+              <span className="text-slate-600 hidden xs:inline">•</span>
+              <span className="text-sky-400 text-xs font-bold shrink-0 hidden xs:inline">
+                {personalInfo.experienceYears} Yrs Exp
+              </span>
             </motion.div>
 
             {/* Name & Title */}

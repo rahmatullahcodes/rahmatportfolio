@@ -6,8 +6,11 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Services from './components/Services';
 import Projects from './components/Projects';
+import Process from './components/Process';
+import Testimonials from './components/Testimonials';
 import Experience from './components/Experience';
 import Education from './components/Education';
+import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ResumeModal from './components/ResumeModal';
@@ -98,11 +101,20 @@ export default function App() {
         {/* Featured Projects Section */}
         <Projects onOpenProjectModal={(project) => setSelectedProject(project)} />
 
+        {/* 4-Step Engineering Methodology */}
+        <Process />
+
+        {/* Client Social Proof & Testimonials */}
+        <Testimonials />
+
         {/* Work Experience Section */}
         <Experience />
 
         {/* Education Section */}
         <Education />
+
+        {/* Frequently Asked Questions */}
+        <FAQ />
 
         {/* Contact & Lead Generation Section */}
         <Contact
