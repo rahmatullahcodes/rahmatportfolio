@@ -29,12 +29,20 @@ const techBadges = [
   { name: 'Node.js', icon: '🟢', color: 'text-emerald-400 bg-emerald-950/70 border-emerald-700/60 shadow-emerald-500/10' },
   { name: 'PHP', icon: '🐘', color: 'text-indigo-400 bg-indigo-950/70 border-indigo-700/60 shadow-indigo-500/10' },
   { name: 'Laravel', icon: '🔥', color: 'text-red-400 bg-red-950/70 border-red-700/60 shadow-red-500/10' },
+  { name: 'CodeIgniter', icon: '⚡', color: 'text-orange-400 bg-orange-950/70 border-orange-700/60 shadow-orange-500/10' },
   { name: 'MySQL', icon: '🐬', color: 'text-amber-400 bg-amber-950/70 border-amber-700/60 shadow-amber-500/10' },
   { name: 'MongoDB', icon: '🍃', color: 'text-green-400 bg-green-950/70 border-green-700/60 shadow-green-500/10' },
-  { name: 'REST APIs', icon: '⚡', color: 'text-cyan-400 bg-cyan-950/70 border-cyan-700/60 shadow-cyan-500/10' },
+  { name: 'REST APIs', icon: '🔌', color: 'text-cyan-400 bg-cyan-950/70 border-cyan-700/60 shadow-cyan-500/10' },
+  { name: 'JWT Auth', icon: '🔐', color: 'text-yellow-400 bg-yellow-950/70 border-yellow-700/60 shadow-yellow-500/10' },
   { name: 'Tailwind CSS', icon: '🎨', color: 'text-teal-400 bg-teal-950/70 border-teal-700/60 shadow-teal-500/10' },
-  { name: 'Flutter', icon: '📱', color: 'text-blue-400 bg-blue-950/70 border-blue-700/60 shadow-blue-500/10' },
-  { name: 'Express.js', icon: '🚀', color: 'text-purple-400 bg-purple-950/70 border-purple-700/60 shadow-purple-500/10' },
+  { name: 'Bootstrap', icon: '🅱️', color: 'text-purple-400 bg-purple-950/70 border-purple-700/60 shadow-purple-500/10' },
+  { name: 'JavaScript ES6+', icon: '💛', color: 'text-yellow-300 bg-yellow-950/70 border-yellow-700/60 shadow-yellow-500/10' },
+  { name: 'Git & GitHub', icon: '🐙', color: 'text-slate-200 bg-slate-900/80 border-slate-700/70 shadow-slate-500/10' },
+  { name: 'Linux & VPS', icon: '🐧', color: 'text-blue-400 bg-blue-950/70 border-blue-700/60 shadow-blue-500/10' },
+  { name: 'cPanel Hosting', icon: '🖥️', color: 'text-orange-300 bg-orange-950/70 border-orange-700/60 shadow-orange-500/10' },
+  { name: 'Technical SEO', icon: '📈', color: 'text-emerald-400 bg-emerald-950/70 border-emerald-700/60 shadow-emerald-500/10' },
+  { name: 'Flutter', icon: '📱', color: 'text-sky-300 bg-sky-950/70 border-sky-700/60 shadow-sky-500/10' },
+  { name: 'Express.js', icon: '🚀', color: 'text-violet-400 bg-violet-950/70 border-violet-700/60 shadow-violet-500/10' }
 ];
 
 export default function Hero({ onOpenResume, onCopyEmail }) {
@@ -328,31 +336,56 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-16 pt-8 border-t border-slate-800/60"
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400 shrink-0 flex items-center gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-sky-400" />
-              Technologies Engineered In Production:
-            </span>
-            <span className="text-[11px] text-slate-500 font-medium">
-              Hover over any tool to pause
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+            <div className="flex items-center gap-2.5">
+              <span className="p-1.5 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400">
+                <Sparkles className="w-4 h-4 animate-spin-slow" />
+              </span>
+              <div>
+                <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-200 block">
+                  Technologies Engineered In Production
+                </span>
+                <span className="text-[11px] text-slate-400 font-medium">
+                  Verified tools used across live applications
+                </span>
+              </div>
+            </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-[11px] text-sky-400 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>Continuous Stream • Hover to pause</span>
+            </div>
           </div>
 
-          {/* Marquee Wrapper with Edge Fade Gradients */}
-          <div className="relative overflow-hidden w-full py-2 group marquee-container">
-            <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-navy-950 to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-navy-950 to-transparent z-10 pointer-events-none" />
+          {/* Marquee Wrapper with Masked Edge Gradients */}
+          <div className="space-y-3.5 marquee-mask py-1">
+            {/* Track 1: Scrolling Left */}
+            <div className="relative overflow-hidden w-full py-1">
+              <div className="flex gap-3 w-max animate-marquee-infinite">
+                {[...techBadges, ...techBadges, ...techBadges].map((tech, idx) => (
+                  <div
+                    key={`track1-${idx}`}
+                    className={`inline-flex items-center gap-2.5 text-xs font-semibold px-4 py-2.5 rounded-xl border backdrop-blur-md transition-all duration-300 hover:scale-110 hover:-translate-y-1.5 shadow-sm cursor-default hover:shadow-glow-sm ${tech.color}`}
+                  >
+                    <span className="text-base select-none">{tech.icon}</span>
+                    <span className="tracking-wide font-medium whitespace-nowrap">{tech.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            <div className="flex gap-3.5 w-max animate-marquee marquee-content">
-              {[...techBadges, ...techBadges].map((tech, idx) => (
-                <div
-                  key={idx}
-                  className={`inline-flex items-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-xl border backdrop-blur-md transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-sm cursor-default ${tech.color}`}
-                >
-                  <span className="text-base">{tech.icon}</span>
-                  <span>{tech.name}</span>
-                </div>
-              ))}
+            {/* Track 2: Scrolling Right (Reverse) */}
+            <div className="relative overflow-hidden w-full py-1">
+              <div className="flex gap-3 w-max animate-marquee-reverse">
+                {[...[...techBadges].reverse(), ...[...techBadges].reverse(), ...[...techBadges].reverse()].map((tech, idx) => (
+                  <div
+                    key={`track2-${idx}`}
+                    className={`inline-flex items-center gap-2.5 text-xs font-semibold px-4 py-2.5 rounded-xl border backdrop-blur-md transition-all duration-300 hover:scale-110 hover:-translate-y-1.5 shadow-sm cursor-default hover:shadow-glow-sm ${tech.color}`}
+                  >
+                    <span className="text-base select-none">{tech.icon}</span>
+                    <span className="tracking-wide font-medium whitespace-nowrap">{tech.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>

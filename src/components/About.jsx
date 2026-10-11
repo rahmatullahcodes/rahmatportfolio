@@ -94,11 +94,14 @@ export default function About({ onOpenResume }) {
           {metricCards.map((metric, idx) => {
             const Icon = metric.icon;
             return (
-              <div
+              <motion.div
                 key={idx}
-                className="group p-5 rounded-2xl bg-white border border-slate-200/90 shadow-card-light hover:border-sky-400 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300"
+                whileHover={{ y: -6, scale: 1.025 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                className="group p-5 rounded-2xl bg-white border border-slate-200/90 shadow-card-light hover:border-sky-400 hover:shadow-card-hover transition-all duration-300 cursor-default"
               >
-                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-sky-600 group-hover:bg-sky-500 group-hover:text-white transition-colors duration-200 mb-3 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-sky-600 group-hover:bg-gradient-to-br group-hover:from-sky-500 group-hover:to-blue-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 mb-3 shadow-sm">
                   <Icon className="w-5 h-5" />
                 </div>
                 <div className="text-2xl font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors">
@@ -110,7 +113,7 @@ export default function About({ onOpenResume }) {
                 <div className="text-[11px] text-slate-500 mt-1">
                   {metric.sub}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </motion.div>
@@ -222,13 +225,15 @@ export default function About({ onOpenResume }) {
                 "Relational & Document Database Modeling",
                 "Technical SEO & Core Web Vitals Awareness"
               ].map((highlight, idx) => (
-                <div
+                <motion.div
                   key={idx}
-                  className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 p-2.5 rounded-xl bg-white border border-slate-200/80 hover:border-sky-300 hover:text-sky-800 transition-all shadow-sm"
+                  whileHover={{ scale: 1.025, x: 3 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 p-2.5 rounded-xl bg-white border border-slate-200/80 hover:border-sky-400 hover:text-sky-700 hover:shadow-sm transition-all shadow-sm cursor-default"
                 >
                   <CheckCircle2 className="w-4 h-4 text-sky-600 shrink-0" />
                   <span>{highlight}</span>
-                </div>
+                </motion.div>
               ))}
             </div>
 
@@ -239,7 +244,7 @@ export default function About({ onOpenResume }) {
                   <Layers className="w-4 h-4 text-sky-600" />
                   Engineering Principles
                 </span>
-                <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 shadow-sm">
+                <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 shadow-sm animate-pulse">
                   Client Focused
                 </span>
               </div>
@@ -248,12 +253,14 @@ export default function About({ onOpenResume }) {
                 {corePillars.map((pillar, idx) => {
                   const Icon = pillar.icon;
                   return (
-                    <div
+                    <motion.div
                       key={idx}
-                      className="p-3.5 rounded-xl border border-slate-100 hover:border-sky-200 hover:bg-sky-50/30 transition-all duration-200 group"
+                      whileHover={{ y: -3, scale: 1.015 }}
+                      transition={{ type: "spring", stiffness: 350, damping: 20 }}
+                      className="p-3.5 rounded-xl border border-slate-100 hover:border-sky-300 hover:bg-sky-50/40 hover:shadow-sm transition-all duration-200 group cursor-default"
                     >
                       <div className="flex items-center gap-2.5 mb-2">
-                        <div className="p-2 rounded-lg bg-slate-100 text-slate-700 group-hover:bg-sky-500 group-hover:text-white transition-all shrink-0">
+                        <div className="p-2 rounded-lg bg-slate-100 text-slate-700 group-hover:bg-gradient-to-br group-hover:from-sky-500 group-hover:to-blue-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all shrink-0 shadow-2xs">
                           <Icon className="w-4 h-4" />
                         </div>
                         <h4 className="text-xs font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
@@ -263,7 +270,7 @@ export default function About({ onOpenResume }) {
                       <p className="text-xs text-slate-500 leading-relaxed">
                         {pillar.description}
                       </p>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
