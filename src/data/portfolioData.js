@@ -8,6 +8,7 @@ export const personalInfo = {
   tagline: "Turning Ideas Into Powerful Digital Experiences.",
   supportingStatement: "I build modern websites, scalable web applications, and mobile solutions that help businesses grow.",
   email: "mdrahmatullahquraishi@gmail.com",
+  avatarUrl: "/images/rahmatullah-quraishi.jpg",
   linkedin: "https://www.linkedin.com/in/md-rahmatullah-723176238",
   github: "https://github.com/rahmatullahcodes",
   whatsapp: "https://wa.me/?text=Hi%20Md%20Rahmatullah,%20I%20am%20interested%20in%20discussing%20a%20project.",

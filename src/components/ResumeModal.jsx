@@ -59,16 +59,25 @@ export default function ResumeModal({ isOpen, onClose }) {
               {/* Header */}
               <div className="border-b border-slate-200 pb-6 mb-8">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div>
-                    <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-                      {personalInfo.name}
-                    </h1>
-                    <p className="text-lg font-semibold text-sky-600 mt-1">
-                      {personalInfo.title}
-                    </p>
-                    <p className="text-sm text-slate-600 mt-1 max-w-xl">
-                      {personalInfo.tagline}
-                    </p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-sky-400/30 shadow-md shrink-0">
+                      <img
+                        src={personalInfo.avatarUrl}
+                        alt={personalInfo.name}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    </div>
+                    <div>
+                      <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                        {personalInfo.name}
+                      </h1>
+                      <p className="text-base font-semibold text-sky-600 mt-0.5">
+                        {personalInfo.title}
+                      </p>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-0.5 max-w-md">
+                        {personalInfo.tagline}
+                      </p>
+                    </div>
                   </div>
                   <div className="text-sm text-slate-600 space-y-1.5">
                     <div className="flex items-center gap-2">

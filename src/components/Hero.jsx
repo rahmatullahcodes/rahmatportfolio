@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   ArrowRight, 
   FileText, 
@@ -12,13 +12,11 @@ import {
   Code2, 
   Briefcase,
   Layers,
-  Camera,
-  Play,
-  Copy,
   Check,
   Cpu,
-  Flame,
-  Globe
+  Globe,
+  ShieldCheck,
+  Zap
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
@@ -36,18 +34,7 @@ const techBadges = [
 ];
 
 export default function Hero({ onOpenResume, onCopyEmail }) {
-  const [activeTab, setActiveTab] = useState('code'); // 'code' | 'profile' | 'terminal'
-  const [customPhoto, setCustomPhoto] = useState(null);
-  const [terminalCmd, setTerminalCmd] = useState('status');
-
-  const handlePhotoUpload = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setCustomPhoto(url);
-      setActiveTab('profile');
-    }
-  };
+  const [showTerminal, setShowTerminal] = useState(false);
 
   return (
     <section
@@ -191,7 +178,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
 
           </div>
 
-          {/* Right Column: Interactive Code & Terminal & Portrait Showcase */}
+          {/* Right Column: Executive Developer Portrait Frame with Real Photo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -199,237 +186,94 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
             className="lg:col-span-5 relative"
           >
             {/* Ambient Back Glow & Pulse */}
-            <div className="absolute -inset-1.5 bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 rounded-3xl blur-2xl opacity-25 hover:opacity-40 transition duration-700 animate-pulse-subtle"></div>
+            <div className="absolute -inset-2 bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 rounded-3xl blur-2xl opacity-25 hover:opacity-40 transition duration-700 animate-pulse-subtle"></div>
 
             {/* Floating Achievement Pill (Top Right) */}
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-6 -right-4 z-20 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/95 border border-sky-500/40 text-white text-xs font-semibold shadow-glow-sm backdrop-blur-md"
+              className="absolute -top-5 -right-3 z-30 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/95 border border-sky-500/40 text-white text-xs font-semibold shadow-glow-sm backdrop-blur-md"
             >
               <Sparkles className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>Production Tested (2+ Yrs)</span>
+              <span>Verified Full Stack Engineer</span>
             </motion.div>
 
             {/* Floating Achievement Pill (Bottom Left) */}
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -bottom-6 -left-4 z-20 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/95 border border-slate-700/80 text-white text-xs font-semibold shadow-xl backdrop-blur-md"
+              className="absolute -bottom-5 -left-3 z-30 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/95 border border-slate-700/80 text-white text-xs font-semibold shadow-xl backdrop-blur-md"
             >
               <Layers className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-              <span>React • Node • PHP • MySQL</span>
+              <span>React • Node • PHP • Laravel</span>
             </motion.div>
 
-            {/* Container Card */}
-            <div className="relative rounded-2xl bg-slate-900/95 border border-slate-800 shadow-2xl p-5 sm:p-6 backdrop-blur-xl">
+            {/* Main Executive Portrait Container */}
+            <div className="relative rounded-3xl bg-slate-900/95 border border-slate-800 shadow-2xl p-4 sm:p-5 backdrop-blur-xl">
               
-              {/* Window Header with Interactive Tabs */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+              {/* Window Header */}
+              <div className="flex items-center justify-between pb-3.5 border-b border-slate-800 mb-4">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-rose-500/90"></div>
                   <div className="w-3 h-3 rounded-full bg-amber-500/90"></div>
                   <div className="w-3 h-3 rounded-full bg-emerald-500/90"></div>
+                  <span className="ml-2 text-xs font-mono text-slate-400">rahmatullah-quraishi.profile</span>
                 </div>
 
-                {/* Tab Switcher */}
-                <div className="flex items-center gap-1 p-1 rounded-lg bg-slate-950/80 border border-slate-800 text-[11px] font-mono">
-                  <button
-                    onClick={() => setActiveTab('code')}
-                    className={`px-2.5 py-1 rounded transition-colors ${
-                      activeTab === 'code' ? 'bg-sky-500/20 text-sky-300 font-bold' : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    profile.ts
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('terminal')}
-                    className={`px-2.5 py-1 rounded transition-colors ${
-                      activeTab === 'terminal' ? 'bg-sky-500/20 text-sky-300 font-bold' : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    terminal.sh
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('profile')}
-                    className={`px-2.5 py-1 rounded transition-colors ${
-                      activeTab === 'profile' ? 'bg-sky-500/20 text-sky-300 font-bold' : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    avatar.view
-                  </button>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span className="text-[11px] font-mono text-sky-400 font-semibold">Active</span>
                 </div>
               </div>
 
-              {/* Dynamic Tab Body */}
-              <div className="min-h-[290px] flex flex-col justify-between">
-                {activeTab === 'code' && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                    className="p-4 rounded-xl bg-slate-950/90 border border-slate-800/80 font-mono text-xs text-slate-300 space-y-1.5 overflow-x-auto"
-                  >
-                    <div className="text-slate-500">// Senior Full Stack Engineer Configuration</div>
-                    <div>
-                      <span className="text-purple-400">export const</span>{' '}
-                      <span className="text-sky-400">engineer</span> = &#123;
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-slate-400">name:</span>{' '}
-                      <span className="text-emerald-300">"{personalInfo.name}"</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-slate-400">title:</span>{' '}
-                      <span className="text-emerald-300">"Full Stack Developer"</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-slate-400">experience:</span>{' '}
-                      <span className="text-amber-300">"{personalInfo.experienceYears} Years"</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-slate-400">coreStacks:</span> [
-                      <span className="text-sky-300">"React"</span>,{' '}
-                      <span className="text-emerald-300">"Node"</span>,{' '}
-                      <span className="text-red-300">"PHP"</span>,{' '}
-                      <span className="text-amber-300">"MySQL"</span>
-                      ],
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-slate-400">availability:</span>{' '}
-                      <span className="text-cyan-400">"Immediate / Project-Based"</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-slate-400">buildReliability:</span>{' '}
-                      <span className="text-emerald-400">true</span>
-                    </div>
-                    <div>&#125;;</div>
-                  </motion.div>
-                )}
+              {/* Professional Photograph Card */}
+              <div className="relative group rounded-2xl overflow-hidden aspect-[4/5] bg-slate-950 border-2 border-sky-500/30 group-hover:border-sky-400 transition-all duration-500 shadow-inner">
+                {/* Real Photograph with Proper Top-Center Crop */}
+                <img
+                  src={personalInfo.avatarUrl}
+                  alt={personalInfo.name}
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  loading="eager"
+                />
 
-                {activeTab === 'terminal' && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                    className="p-4 rounded-xl bg-slate-950/90 border border-slate-800/80 font-mono text-xs text-slate-300 space-y-3"
-                  >
-                    <div className="text-slate-500 text-[11px] flex items-center justify-between">
-                      <span>zsh — 80x24</span>
-                      <span className="text-emerald-400">● live</span>
-                    </div>
+                {/* Subtle vignette overlay at top and bottom for visual depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent opacity-80 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-b from-navy-950/40 via-transparent to-transparent pointer-events-none" />
 
-                    <div className="space-y-1">
-                      <div className="text-slate-400">
-                        <span className="text-emerald-400">rahmatullah@dev</span>:<span className="text-sky-400">~</span>$ curl -s api.rahmatullah.dev/{terminalCmd}
-                      </div>
-
-                      {terminalCmd === 'status' && (
-                        <div className="p-2.5 rounded bg-slate-900/80 text-emerald-300 text-[11px] space-y-0.5">
-                          <div>&#123;</div>
-                          <div className="pl-3">"status": 200,</div>
-                          <div className="pl-3">"engineer": "Md Rahmatullah Quraishi",</div>
-                          <div className="pl-3">"currentRole": "Full Stack Developer @ Zynextro",</div>
-                          <div className="pl-3">"verifiedProjects": 5</div>
-                          <div>&#125;</div>
-                        </div>
-                      )}
-
-                      {terminalCmd === 'stack' && (
-                        <div className="p-2.5 rounded bg-slate-900/80 text-sky-300 text-[11px] space-y-0.5">
-                          <div>Frontend: React.js, Tailwind, Bootstrap, HTML5/CSS3</div>
-                          <div>Backend: PHP, Laravel, Node.js, Express, REST APIs</div>
-                          <div>Databases: MySQL, MongoDB</div>
-                        </div>
-                      )}
-
-                      {terminalCmd === 'contact' && (
-                        <div className="p-2.5 rounded bg-slate-900/80 text-amber-300 text-[11px]">
-                          <div>Email: mdrahmatullahquraishi@gmail.com</div>
-                          <div>GitHub: github.com/rahmatullahcodes</div>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Quick interactive buttons to run commands */}
-                    <div className="flex items-center gap-1.5 pt-1 text-[11px]">
-                      <span className="text-slate-500">Run:</span>
-                      {['status', 'stack', 'contact'].map(cmd => (
-                        <button
-                          key={cmd}
-                          onClick={() => setTerminalCmd(cmd)}
-                          className={`px-2 py-0.5 rounded border transition-colors ${
-                            terminalCmd === cmd ? 'bg-sky-500 text-white border-sky-400' : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
-                          }`}
-                        >
-                          /{cmd}
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-
-                {activeTab === 'profile' && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                    className="relative group rounded-xl overflow-hidden bg-gradient-to-b from-slate-800/80 to-navy-950 border border-slate-700/60 aspect-[16/10] flex flex-col items-center justify-center text-center p-4"
-                  >
-                    {customPhoto ? (
-                      <img
-                        src={customPhoto}
-                        alt={personalInfo.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <>
-                        <div className="relative mb-3">
-                          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 p-0.5 shadow-glow-md">
-                            <div className="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center relative overflow-hidden">
-                              <Code2 className="w-10 h-10 text-sky-400" />
-                              <div className="absolute inset-0 bg-gradient-to-tr from-sky-500/10 to-transparent pointer-events-none" />
-                            </div>
-                          </div>
-                          <span className="absolute -bottom-1 -right-1 px-2 py-0.5 rounded-md bg-emerald-500 text-[9px] font-extrabold text-navy-950 uppercase tracking-wider shadow">
-                            Active
-                          </span>
-                        </div>
-
-                        <h3 className="text-sm font-bold text-white tracking-tight">
-                          {personalInfo.name}
-                        </h3>
-                        <p className="text-xs text-sky-400 font-medium mt-0.5">
-                          Full Stack Developer • 2+ Yrs Experience
-                        </p>
-                      </>
-                    )}
-
-                    <label className="absolute bottom-2.5 right-2.5 cursor-pointer p-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 shadow-md text-xs flex items-center gap-1.5 transition-all">
-                      <Camera className="w-3.5 h-3.5 text-sky-400" />
-                      <span className="text-[10px]">Change Photo</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handlePhotoUpload}
-                        className="hidden"
-                      />
-                    </label>
-                  </motion.div>
-                )}
-
-                {/* Bottom Quick Metric Pills */}
-                <div className="mt-4 pt-3.5 border-t border-slate-800/80 grid grid-cols-2 gap-3 text-center">
-                  <div className="p-2.5 rounded-xl bg-slate-800/40 border border-slate-800 hover:border-sky-500/40 transition-colors">
-                    <div className="text-base font-extrabold text-white">2+ Years</div>
-                    <div className="text-[11px] text-slate-400 font-medium">Production Experience</div>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-slate-800/40 border border-slate-800 hover:border-sky-500/40 transition-colors">
-                    <div className="text-base font-extrabold text-sky-400">100% Verified</div>
-                    <div className="text-[11px] text-slate-400 font-medium">5 Live Case Studies</div>
-                  </div>
+                {/* Top Badge: Available for Hire */}
+                <div className="absolute top-3.5 left-3.5 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white text-xs font-semibold shadow-lg">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Open for Projects</span>
                 </div>
 
+                {/* Bottom Overlay Card with Name, Title & Experience */}
+                <div className="absolute bottom-3 left-3 right-3 z-20 p-3.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-800 shadow-2xl">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-sm sm:text-base font-extrabold text-white tracking-tight">
+                        {personalInfo.name}
+                      </h3>
+                      <p className="text-xs font-semibold text-sky-400">
+                        {personalInfo.title}
+                      </p>
+                    </div>
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-300 border border-sky-400/30">
+                      2+ Yrs
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Quick Metric Pills */}
+              <div className="mt-4 pt-3.5 border-t border-slate-800/80 grid grid-cols-2 gap-3 text-center">
+                <div className="p-2.5 rounded-xl bg-slate-800/40 border border-slate-800 hover:border-sky-500/40 transition-colors">
+                  <div className="text-base font-extrabold text-white">2+ Years</div>
+                  <div className="text-[11px] text-slate-400 font-medium">Production Experience</div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-800/40 border border-slate-800 hover:border-sky-500/40 transition-colors">
+                  <div className="text-base font-extrabold text-sky-400">Dual-Stack</div>
+                  <div className="text-[11px] text-slate-400 font-medium">React.js & PHP/Laravel</div>
+                </div>
               </div>
 
             </div>

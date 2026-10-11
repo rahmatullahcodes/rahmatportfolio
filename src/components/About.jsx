@@ -14,7 +14,8 @@ import {
   Sparkles,
   Cpu,
   Server,
-  Layout
+  Layout,
+  GraduationCap
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
@@ -113,11 +114,87 @@ export default function About({ onOpenResume }) {
           })}
         </motion.div>
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        {/* Content Grid with Portrait Card */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           
-          {/* Left Column: Biography & Background */}
+          {/* Left Column: Dedicated Professional Portrait Card */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-5 space-y-4"
+          >
+            <div className="p-5 sm:p-6 rounded-3xl bg-white border border-slate-200/90 shadow-card-light space-y-5">
+              
+              {/* Photo Frame with Subtle Blue Border */}
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-slate-900 border-2 border-sky-400/30 shadow-md group">
+                <img
+                  src={personalInfo.avatarUrl}
+                  alt={personalInfo.name}
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                />
+
+                {/* Subtle bottom gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+
+                {/* Status Badge */}
+                <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 backdrop-blur-md border border-slate-700 text-white text-xs font-semibold shadow">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Full Stack Engineer</span>
+                </div>
+
+                {/* Bottom Overlay Info */}
+                <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10 p-3 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-800 text-white">
+                  <div className="text-sm font-extrabold tracking-tight">{personalInfo.name}</div>
+                  <div className="text-xs text-sky-400 font-medium">2+ Years Production Experience</div>
+                </div>
+              </div>
+
+              {/* Education & Current Role Badges */}
+              <div className="space-y-2.5 pt-1 text-xs">
+                <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className="text-slate-500 font-medium flex items-center gap-1.5">
+                    <Briefcase className="w-3.5 h-3.5 text-sky-600" />
+                    Current Organization
+                  </span>
+                  <span className="font-bold text-slate-800">Zynextro Software</span>
+                </div>
+                <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className="text-slate-500 font-medium flex items-center gap-1.5">
+                    <GraduationCap className="w-3.5 h-3.5 text-sky-600" />
+                    Degree
+                  </span>
+                  <span className="font-bold text-slate-800">BCA–MCA Integrated (IGNOU)</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={onOpenResume}
+                  className="shine-button flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <FileText className="w-3.5 h-3.5 text-sky-400" />
+                  <span>View Resume</span>
+                </button>
+                <a
+                  href="#contact"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold border border-slate-200 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <span>Hire Me</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+                </a>
+              </div>
+
+            </div>
+          </motion.div>
+
+          {/* Right Column: Biography, Highlights, and Philosophy Pillars */}
           <div className="lg:col-span-7 space-y-6">
+            
+            {/* Bio Prose */}
             <div className="prose prose-slate max-w-none text-slate-600 space-y-4 text-base leading-relaxed">
               <p>
                 I am <strong className="text-slate-900 font-bold">{personalInfo.name}</strong>, a Full Stack Developer with <strong>2+ years of production experience</strong> building modern websites, web applications, and digital business tools.
@@ -150,87 +227,40 @@ export default function About({ onOpenResume }) {
               ))}
             </div>
 
-            {/* Resume & Discussion CTAs */}
-            <div className="pt-6 flex flex-wrap items-center gap-4">
-              <button
-                onClick={onOpenResume}
-                className="shine-button inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
-              >
-                <FileText className="w-4 h-4 text-sky-400" />
-                <span>Review & Download Resume</span>
-              </button>
-
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 text-xs sm:text-sm font-semibold border border-slate-300 shadow-sm hover:border-sky-400 hover:text-sky-700 hover:scale-[1.02] active:scale-[0.98] transition-all"
-              >
-                <span>Discuss Your Next Project</span>
-                <ArrowRight className="w-4 h-4 text-slate-500" />
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column: Core Philosophy Pillars & Key Card */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 shadow-card-light space-y-5">
+            {/* Development Philosophy Pillars Card */}
+            <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 shadow-card-light space-y-4 mt-6">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
                   <Layers className="w-4 h-4 text-sky-600" />
-                  Development Philosophy
+                  Engineering Principles
                 </span>
                 <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 shadow-2xs">
                   Client Focused
                 </span>
               </div>
 
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {corePillars.map((pillar, idx) => {
                   const Icon = pillar.icon;
                   return (
                     <div
                       key={idx}
-                      className="flex items-start gap-3.5 p-3 rounded-xl border border-transparent hover:border-sky-200 hover:bg-sky-50/40 hover:-translate-y-0.5 transition-all duration-200 group"
+                      className="p-3.5 rounded-xl border border-slate-100 hover:border-sky-200 hover:bg-sky-50/30 transition-all duration-200 group"
                     >
-                      <div className="p-2.5 rounded-xl bg-slate-100 text-slate-700 group-hover:bg-sky-500 group-hover:text-white group-hover:scale-110 transition-all duration-200 shrink-0 mt-0.5 shadow-2xs">
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="flex items-center justify-between gap-2">
-                          <h4 className="text-sm font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
-                            {pillar.title}
-                          </h4>
-                          <span className="text-[10px] font-semibold text-sky-700 bg-sky-100/80 px-2 py-0.5 rounded">
-                            {pillar.badge}
-                          </span>
+                      <div className="flex items-center gap-2.5 mb-2">
+                        <div className="p-2 rounded-lg bg-slate-100 text-slate-700 group-hover:bg-sky-500 group-hover:text-white transition-all shrink-0">
+                          <Icon className="w-4 h-4" />
                         </div>
-                        <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                          {pillar.description}
-                        </p>
+                        <h4 className="text-xs font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
+                          {pillar.title}
+                        </h4>
                       </div>
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        {pillar.description}
+                      </p>
                     </div>
                   );
                 })}
-              </div>
-            </div>
-
-            {/* Quick Experience Callout Card */}
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-navy-950 text-white border border-slate-800 shadow-xl hover:border-sky-500/40 transition-colors group">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-3xl font-extrabold text-white group-hover:text-sky-300 transition-colors">2+ Years</div>
-                  <div className="text-xs text-sky-400 font-semibold mt-0.5">Hands-on Production Code</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Current Role</div>
-                  <div className="text-sm font-bold text-slate-200">Zynextro Software</div>
-                </div>
-              </div>
-              <div className="mt-4 pt-3.5 border-t border-slate-800 text-xs text-slate-400 flex items-center justify-between">
-                <span>Education: BCA & MCA (IGNOU)</span>
-                <span className="text-emerald-400 font-medium flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  Open for work
-                </span>
               </div>
             </div>
 
