@@ -20,7 +20,7 @@ export default function TiltCard({ children, className = '', glowColor = 'rgba(5
   const [spotlightPos, setSpotlightPos] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
-    if (!ref.current) return;
+    if (!ref.current || (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches)) return;
     const rect = ref.current.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;

@@ -7,7 +7,18 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, projectType, budget, message, honeypot } = req.body || {};
+    const { 
+      name, 
+      email, 
+      phone, 
+      projectType, 
+      customProjectType, 
+      budget, 
+      customBudget, 
+      currency, 
+      message, 
+      honeypot 
+    } = req.body || {};
 
     // Spam honeypot trap
     if (honeypot) {
@@ -50,8 +61,23 @@ export default async function handler(req, res) {
 
     const sanitizedName = name.trim();
     const sanitizedEmail = email.trim();
-    const sanitizedProjectType = projectType || 'General Inquiry';
-    const sanitizedBudget = budget || 'Not specified';
+    const sanitizedPhone = (phone && phone.trim()) ? phone.trim() : 'Not provided';
+    const cleanDigits = sanitizedPhone.replace(/[^0-9]/g, '');
+    
+    // Resolve custom project type if specified
+    const sanitizedProjectType = (projectType === 'Other Custom Project' && customProjectType && customProjectType.trim())
+      ? `Other: ${customProjectType.trim()}`
+      : (projectType || 'General Inquiry');
+
+    // Resolve custom budget if specified
+    const selectedCurrency = currency || 'INR';
+    let sanitizedBudget = budget || 'Flexible';
+    if ((budget === 'Custom Amount' || budget === 'Custom Budget') && customBudget && customBudget.trim()) {
+      sanitizedBudget = `Custom (${selectedCurrency}): ${customBudget.trim()}`;
+    } else if (budget) {
+      sanitizedBudget = `${budget} [${selectedCurrency}]`;
+    }
+
     const sanitizedMessage = message.trim();
     const submissionTime = new Date().toLocaleString('en-US', {
       timeZone: 'Asia/Kolkata',
@@ -61,7 +87,7 @@ export default async function handler(req, res) {
 
     // 1. Send detailed inquiry alert email to Md Rahmatullah Quraishi
     await transporter.sendMail({
-      from: `"Portfolio Inquiry Bot" <${gmailUser}>`,
+      from: `"Portfolio Lead Bot" <${gmailUser}>`,
       to: gmailUser,
       replyTo: `${sanitizedName} <${sanitizedEmail}>`,
       subject: `⚡ New Project Inquiry: ${sanitizedName} [${sanitizedProjectType}]`,
@@ -70,6 +96,7 @@ New Project Inquiry Received via Portfolio Website
 
 Name: ${sanitizedName}
 Email: ${sanitizedEmail}
+Phone / WhatsApp: ${sanitizedPhone}
 Project Type: ${sanitizedProjectType}
 Budget Range: ${sanitizedBudget}
 Submitted: ${submissionTime} IST
@@ -115,12 +142,20 @@ ${sanitizedMessage}
                 <div class="field-value"><a href="mailto:${sanitizedEmail}" style="color: #0284c7; text-decoration: none;">${sanitizedEmail}</a></div>
               </div>
               <div class="card-field">
+                <div class="field-label">Client Phone / WhatsApp Number</div>
+                <div class="field-value">
+                  ${sanitizedPhone !== 'Not provided' 
+                    ? `<a href="tel:${sanitizedPhone}" style="color: #059669; text-decoration: none; font-weight: 700;">${sanitizedPhone}</a>` 
+                    : '<span style="color: #94a3b8; font-weight: normal;">Not provided</span>'}
+                </div>
+              </div>
+              <div class="card-field">
                 <div class="field-label">Requested Project Type</div>
                 <div class="field-value">${sanitizedProjectType}</div>
               </div>
               <div class="card-field">
                 <div class="field-label">Target Budget</div>
-                <div class="field-value" style="color: #059669;">${sanitizedBudget}</div>
+                <div class="field-value" style="color: #059669; font-weight: 700;">${sanitizedBudget}</div>
               </div>
               <div class="card-field">
                 <div class="field-label">Submission Timestamp</div>
@@ -132,10 +167,15 @@ ${sanitizedMessage}
                 <div class="message-content">${sanitizedMessage}</div>
               </div>
 
-              <div style="text-align: center;">
+              <div style="text-align: center; margin-top: 24px;">
                 <a href="mailto:${sanitizedEmail}?subject=Re: Project Inquiry — Md Rahmatullah Quraishi" class="btn-reply">
-                  Direct Reply to ${sanitizedName} →
+                  Email ${sanitizedName} →
                 </a>
+                ${cleanDigits.length >= 10 ? `
+                  <a href="https://wa.me/${cleanDigits}" class="btn-reply" style="background: #16a34a !important; margin-left: 8px;">
+                    WhatsApp Chat →
+                  </a>
+                ` : ''}
               </div>
             </div>
             <div class="footer">

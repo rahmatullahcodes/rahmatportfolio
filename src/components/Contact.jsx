@@ -38,19 +38,32 @@ const projectTypes = [
   { label: "Other Custom Project", icon: HelpCircle }
 ];
 
-const budgetRanges = [
-  "Less than $1,000",
-  "$1,000 – $3,000",
-  "$3,000 – $5,000",
-  "$5,000+"
+const budgetRangesINR = [
+  "Less than ₹25,000",
+  "₹25,000 – ₹75,000",
+  "₹75,000 – ₹1,50,000",
+  "₹1,50,000+",
+  "Custom Amount"
+];
+
+const budgetRangesUSD = [
+  "Less than $500",
+  "$500 – $1,500",
+  "$1,500 – $3,500",
+  "$3,500+",
+  "Custom Amount"
 ];
 
 export default function Contact({ prefilledService, onShowToast }) {
+  const [currency, setCurrency] = useState('INR'); // 'INR' or 'USD'
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     projectType: 'Full Stack Web Application',
-    budget: '$1,000 – $3,000',
+    customProjectType: '',
+    budget: '₹25,000 – ₹75,000',
+    customBudget: '',
     description: '',
     honeypot: '' // Anti-bot honeypot field
   });
@@ -92,6 +105,17 @@ export default function Contact({ prefilledService, onShowToast }) {
       });
     }
     setTimeout(() => setCopiedPhone(false), 3000);
+  };
+
+  const handleCurrencyChange = (newCurrency) => {
+    setCurrency(newCurrency);
+    if (formData.budget !== 'Custom Amount') {
+      if (newCurrency === 'USD') {
+        setFormData(prev => ({ ...prev, budget: '$500 – $1,500' }));
+      } else {
+        setFormData(prev => ({ ...prev, budget: '₹25,000 – ₹75,000' }));
+      }
+    }
   };
 
   const handleChange = (e) => {
@@ -138,8 +162,12 @@ export default function Contact({ prefilledService, onShowToast }) {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
+          phone: formData.phone,
           projectType: formData.projectType,
+          customProjectType: formData.customProjectType,
           budget: formData.budget,
+          customBudget: formData.customBudget,
+          currency: currency,
           message: formData.description,
           honeypot: formData.honeypot
         })
@@ -416,8 +444,11 @@ export default function Contact({ prefilledService, onShowToast }) {
                       setFormData({
                         name: '',
                         email: '',
+                        phone: '',
                         projectType: 'Full Stack Web Application',
-                        budget: '$1,000 – $3,000',
+                        customProjectType: '',
+                        budget: currency === 'USD' ? '$500 – $1,500' : '₹25,000 – ₹75,000',
+                        customBudget: '',
                         description: '',
                         honeypot: ''
                       });
@@ -482,6 +513,28 @@ export default function Contact({ prefilledService, onShowToast }) {
                     </div>
                   </div>
 
+                  {/* Phone / WhatsApp Number Field */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                        <Phone className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Phone / WhatsApp Number</span>
+                        <span className="text-[11px] font-normal text-slate-500">(Optional)</span>
+                      </label>
+                      <span className="text-[10px] text-emerald-400 font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                        Direct call / WhatsApp
+                      </span>
+                    </div>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="e.g. +91 89693 61100"
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950/90 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20 transition-all font-mono"
+                    />
+                  </div>
+
                   {/* Project Type Selector Pills */}
                   <div>
                     <label className="block text-xs font-bold text-slate-300 mb-2">
@@ -497,7 +550,7 @@ export default function Contact({ prefilledService, onShowToast }) {
                             key={idx}
                             type="button"
                             onClick={() => setFormData(prev => ({ ...prev, projectType: type.label }))}
-                            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all text-left ${
+                            className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-semibold border transition-all text-left ${
                               isSelected
                                 ? 'bg-sky-500/20 text-sky-300 border-sky-400 shadow-glow-sm'
                                 : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-white hover:bg-slate-800/80 hover:border-slate-700'
@@ -509,20 +562,76 @@ export default function Contact({ prefilledService, onShowToast }) {
                         );
                       })}
                     </div>
+
+                    {/* Custom Project Type Input (Animated reveal when "Other Custom Project" is selected) */}
+                    <AnimatePresence>
+                      {formData.projectType === 'Other Custom Project' && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0, y: -6 }}
+                          animate={{ opacity: 1, height: 'auto', y: 0 }}
+                          exit={{ opacity: 0, height: 0, y: -6 }}
+                          transition={{ duration: 0.2 }}
+                          className="mt-2.5 overflow-hidden"
+                        >
+                          <input
+                            type="text"
+                            name="customProjectType"
+                            value={formData.customProjectType}
+                            onChange={handleChange}
+                            placeholder="Specify your custom project (e.g. AI SaaS MVP, Chrome Extension, CRM...)"
+                            className="w-full px-4 py-2.5 rounded-xl bg-slate-950/90 border border-sky-400/60 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 transition-all shadow-inner"
+                          />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
-                  {/* Budget Selector */}
+                  {/* Budget Selector with INR / USD Currency Switcher */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-2">
-                      Expected Budget Range
-                    </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {budgetRanges.map((range, idx) => (
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                      <label className="text-xs font-bold text-slate-300">
+                        Expected Budget:{' '}
+                        <span className="text-sky-400 font-semibold">
+                          {formData.budget === 'Custom Amount' 
+                            ? (formData.customBudget ? `${formData.customBudget} (${currency})` : `Custom (${currency})`)
+                            : formData.budget}
+                        </span>
+                      </label>
+
+                      {/* Currency Switcher Toggle */}
+                      <div className="flex items-center bg-slate-950 p-0.5 rounded-lg border border-slate-800">
+                        <button
+                          type="button"
+                          onClick={() => handleCurrencyChange('INR')}
+                          className={`px-2.5 py-1 rounded-md text-xs font-bold transition-all ${
+                            currency === 'INR'
+                              ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-sm'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          ₹ INR
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleCurrencyChange('USD')}
+                          className={`px-2.5 py-1 rounded-md text-xs font-bold transition-all ${
+                            currency === 'USD'
+                              ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-sm'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          $ USD
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+                      {(currency === 'INR' ? budgetRangesINR : budgetRangesUSD).map((range, idx) => (
                         <button
                           key={idx}
                           type="button"
                           onClick={() => setFormData(prev => ({ ...prev, budget: range }))}
-                          className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all text-center ${
+                          className={`px-3 py-2.5 rounded-xl text-xs font-bold border transition-all text-center ${
                             formData.budget === range
                               ? 'bg-sky-500/25 text-sky-300 border-sky-400 shadow-glow-sm'
                               : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-white hover:bg-slate-800'
@@ -532,6 +641,37 @@ export default function Contact({ prefilledService, onShowToast }) {
                         </button>
                       ))}
                     </div>
+
+                    {/* Custom Budget Input (Animated reveal when "Custom Amount" is selected) */}
+                    <AnimatePresence>
+                      {formData.budget === 'Custom Amount' && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0, y: -6 }}
+                          animate={{ opacity: 1, height: 'auto', y: 0 }}
+                          exit={{ opacity: 0, height: 0, y: -6 }}
+                          transition={{ duration: 0.2 }}
+                          className="mt-2.5 overflow-hidden"
+                        >
+                          <div className="relative">
+                            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-sky-400 font-mono">
+                              {currency === 'INR' ? '₹' : '$'}
+                            </span>
+                            <input
+                              type="text"
+                              name="customBudget"
+                              value={formData.customBudget}
+                              onChange={handleChange}
+                              placeholder={
+                                currency === 'INR' 
+                                  ? "Enter your custom budget (e.g. ₹60,000 or Negotiable)"
+                                  : "Enter your custom budget (e.g. $1,200 or Negotiable)"
+                              }
+                              className="w-full pl-8 pr-4 py-2.5 rounded-xl bg-slate-950/90 border border-sky-400/60 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 transition-all shadow-inner"
+                            />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
                   {/* Project Description */}

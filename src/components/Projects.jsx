@@ -107,22 +107,24 @@ export default function Projects({ onOpenProjectModal }) {
                   {/* Visual Browser Mockup Header */}
                   <div className="relative bg-slate-900 p-5 text-white border-b border-slate-800">
                     {/* Browser Bar Controls */}
-                    <div className="flex items-center justify-between pb-3 border-b border-slate-800/90 mb-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></div>
-                        <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
-                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
+                    <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 pb-3 border-b border-slate-800/90 mb-4">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></div>
+                          <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
+                          <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
+                        </div>
                         
                         {/* URL Pill with Copy */}
-                        <div className="ml-2 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-[11px] font-mono text-slate-300">
+                        <div className="ml-1 sm:ml-2 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-[11px] font-mono text-slate-300 min-w-0">
                           <Lock className="w-3 h-3 text-emerald-400 shrink-0" />
-                          <span className="truncate max-w-[150px] sm:max-w-xs">
+                          <span className="truncate max-w-[120px] sm:max-w-xs">
                             {project.websiteUrl.replace('https://', '').replace('http://', '').replace(/\/$/, '')}
                           </span>
                           <button
                             onClick={(e) => handleCopyUrl(e, project)}
                             title="Copy project URL"
-                            className="text-slate-400 hover:text-white p-0.5 ml-1 transition-colors"
+                            className="text-slate-400 hover:text-white p-0.5 ml-0.5 transition-colors shrink-0"
                           >
                             {copiedId === project.id ? (
                               <Check className="w-3 h-3 text-emerald-400" />
@@ -133,7 +135,7 @@ export default function Projects({ onOpenProjectModal }) {
                         </div>
                       </div>
 
-                      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shadow-sm">
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shadow-sm shrink-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                         Verified Live
                       </span>
@@ -215,7 +217,7 @@ export default function Projects({ onOpenProjectModal }) {
                     </div>
 
                     {/* Actions Bar */}
-                    <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between gap-3">
+                    <div className="pt-4 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-3">
                       <button
                         onClick={() => onOpenProjectModal(project)}
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-sky-600 transition-colors p-1"

@@ -89,7 +89,7 @@ export default function About({ onOpenResume }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-14"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-14"
         >
           {metricCards.map((metric, idx) => {
             const Icon = metric.icon;
@@ -99,7 +99,7 @@ export default function About({ onOpenResume }) {
                 whileHover={{ y: -6, scale: 1.025 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 300, damping: 18 }}
-                className="group p-5 rounded-2xl bg-white border border-slate-200/90 shadow-card-light hover:border-sky-400 hover:shadow-card-hover transition-all duration-300 cursor-default"
+                className="group p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-card-light hover:border-sky-400 hover:shadow-card-hover transition-all duration-300 cursor-default"
               >
                 <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-sky-600 group-hover:bg-gradient-to-br group-hover:from-sky-500 group-hover:to-blue-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 mb-3 shadow-sm">
                   <Icon className="w-5 h-5" />
