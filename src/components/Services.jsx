@@ -11,7 +11,8 @@ import {
   TrendingUp, 
   ArrowRight, 
   CheckCircle2,
-  Sparkles
+  Sparkles,
+  Check
 } from 'lucide-react';
 import { services } from '../data/portfolioData';
 
@@ -38,45 +39,60 @@ export default function Services({ onSelectService }) {
   };
 
   return (
-    <section id="services" className="py-24 bg-surface-50 text-slate-800 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-24 bg-surface-50 text-slate-800 border-t border-slate-200 relative overflow-hidden">
+      {/* Background Soft Glow */}
+      <div className="absolute top-1/3 left-0 w-80 h-80 bg-sky-200/30 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-600"></span>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="max-w-3xl mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-600 animate-pulse"></span>
             Primary Services
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
             High-impact web, backend, and software engineering services.
           </h2>
           <p className="mt-4 text-base text-slate-600 leading-relaxed">
             Delivering business-oriented digital solutions from initial technical design to final production deployment.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Services 8-Card Grid */}
+        {/* Services 8-Card Grid with Elevated Hover Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service) => {
+          {services.map((service, index) => {
             const Icon = serviceIcons[service.iconName] || Globe;
+            const numberLabel = String(index + 1).padStart(2, '0');
 
             return (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.3 }}
-                className="group relative flex flex-col justify-between p-6 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 hover:shadow-card-hover transition-all duration-300"
+                transition={{ duration: 0.35, delay: index * 0.05 }}
+                className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 hover:border-sky-400 hover:shadow-card-hover hover:-translate-y-2 transition-all duration-300 overflow-hidden"
               >
+                {/* Number Watermark */}
+                <span className="absolute top-4 right-5 text-2xl font-black font-mono text-slate-200 group-hover:text-sky-200/80 transition-colors pointer-events-none select-none">
+                  {numberLabel}
+                </span>
+
                 <div>
                   {/* Icon & Category */}
-                  <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center text-sky-600 group-hover:bg-sky-500 group-hover:text-white group-hover:border-sky-500 transition-colors duration-200 mb-5 shadow-2xs">
+                  <div className="w-13 h-13 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-center text-sky-600 group-hover:bg-gradient-to-br group-hover:from-sky-500 group-hover:to-blue-600 group-hover:text-white group-hover:scale-110 group-hover:shadow-glow-sm transition-all duration-300 mb-5 shadow-2xs">
                     <Icon className="w-6 h-6" />
                   </div>
 
                   {/* Service Title */}
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-sky-600 transition-colors mb-2.5">
+                  <h3 className="text-base font-bold text-slate-900 group-hover:text-sky-600 transition-colors mb-2.5 leading-snug">
                     {service.title}
                   </h3>
 
@@ -91,8 +107,8 @@ export default function Services({ onSelectService }) {
                       Deliverables:
                     </span>
                     {service.deliverables.map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-xs text-slate-700">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                      <div key={idx} className="flex items-start gap-2 text-xs text-slate-700 group-hover:text-slate-800 transition-colors">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5 group-hover:text-emerald-600" />
                         <span>{item}</span>
                       </div>
                     ))}
@@ -103,10 +119,10 @@ export default function Services({ onSelectService }) {
                 <div className="pt-4 border-t border-slate-100 mt-auto">
                   <button
                     onClick={() => handleServiceInquiry(service.title)}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-slate-50 hover:bg-slate-900 text-slate-700 hover:text-white text-xs font-semibold transition-all duration-200 group/btn"
+                    className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-900 text-slate-700 hover:text-white text-xs font-bold transition-all duration-200 group/btn border border-slate-100 hover:border-slate-800 shadow-2xs"
                   >
                     <span>Inquire About Service</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-sky-400 transition-transform group-hover/btn:translate-x-0.5" />
+                    <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-sky-400 transition-transform group-hover/btn:translate-x-1" />
                   </button>
                 </div>
               </motion.div>
@@ -114,28 +130,34 @@ export default function Services({ onSelectService }) {
           })}
         </div>
 
-        {/* Client Collaboration Banner */}
-        <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-slate-900 via-navy-950 to-slate-900 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          <div className="space-y-1">
-            <h4 className="text-lg font-bold text-white flex items-center gap-2">
+        {/* Client Collaboration Banner with Shine Effect */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-14 p-7 sm:p-9 rounded-2xl bg-gradient-to-r from-slate-900 via-navy-950 to-slate-900 text-white border border-slate-800 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative overflow-hidden"
+        >
+          <div className="absolute right-0 top-0 bottom-0 w-96 bg-gradient-to-l from-sky-500/10 to-transparent pointer-events-none" />
+
+          <div className="space-y-1.5 relative z-10">
+            <h4 className="text-lg sm:text-xl font-extrabold text-white flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-sky-400" />
               Need a bespoke combination or end-to-end MVP?
             </h4>
-            <p className="text-xs sm:text-sm text-slate-400">
-              I can take your concept from database architecture and API design to a polished frontend and production hosting.
+            <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
+              I can architect your entire concept from database schema and REST API endpoints to a high-converting reactive UI and reliable production hosting.
             </p>
           </div>
           <a
             href="#contact"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs sm:text-sm font-bold shadow-glow-sm transition-all shrink-0"
+            className="shine-button inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs sm:text-sm font-bold shadow-glow-sm hover:shadow-glow-md hover:scale-[1.03] active:scale-[0.98] transition-all shrink-0 relative z-10"
           >
             <span>Request a Project Quote</span>
             <ArrowRight className="w-4 h-4" />
           </a>
-        </div>
+        </motion.div>
 
       </div>
     </section>
   );
 }
-

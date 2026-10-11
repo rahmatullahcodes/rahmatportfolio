@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -20,6 +21,14 @@ export default function App() {
   const [prefilledService, setPrefilledService] = useState('');
   const [toast, setToast] = useState(null);
 
+  // Top Scroll Progress Bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(personalInfo.email);
     setToast({
@@ -33,7 +42,13 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950 font-sans selection:bg-sky-500 selection:text-white">
+    <div className="min-h-screen bg-navy-950 font-sans selection:bg-sky-500 selection:text-white relative">
+      {/* Top Animated Scroll Progress Indicator */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-blue-500 to-cyan-400 z-50 origin-left shadow-glow-sm"
+        style={{ scaleX }}
+      />
+
       {/* Navigation Header */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 
@@ -91,4 +106,3 @@ export default function App() {
     </div>
   );
 }
-
