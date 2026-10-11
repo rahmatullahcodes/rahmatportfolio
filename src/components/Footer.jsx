@@ -138,6 +138,12 @@ export default function Footer() {
                   <ExternalLink className="w-3 h-3 text-slate-500" />
                 </a>
               </li>
+              <li>
+                <a href="https://askanaljazeera.com/" target="_blank" rel="noopener noreferrer" className="hover:text-sky-400 flex items-center justify-between">
+                  <span>Askan Al Jazeera</span>
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                </a>
+              </li>
             </ul>
           </div>
 

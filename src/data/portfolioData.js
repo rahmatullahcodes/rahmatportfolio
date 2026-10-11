@@ -340,6 +340,30 @@ export const projects = [
     verified: true,
     accentColor: "from-emerald-600 to-sky-700",
     badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+  },
+  {
+    id: "askanaljazeera",
+    title: "Askan Al Jazeera Aluminium",
+    subtitle: "Architectural & Industrial Fabrication Portal",
+    tagline: "Corporate showcase and quotation platform for premier architectural aluminium fabrication.",
+    category: "Corporate Web Portal",
+    websiteUrl: "https://askanaljazeera.com/",
+    technologies: ["PHP", "MySQL", "Bootstrap", "HTML5", "CSS3", "JavaScript"],
+    overview: "Askan Al Jazeera Aluminium is a corporate web portal engineered for a premier Middle Eastern architectural and industrial fabrication firm. It features an interactive project catalog, dynamic image galleries, localized quote inquiry funnels, and multilingual Google Translate support.",
+    problemSolution: {
+      problem: "The firm needed a modern digital showcase to exhibit large-scale architectural projects across residential and industrial sectors and receive rapid quotation inquiries from international and GCC clients.",
+      solution: "Developed a modern, responsive web portal with dedicated service pages, categorized project galleries, multi-channel inquiry workflows (including WhatsApp and contact forms), and multilingual accessibility."
+    },
+    roleContribution: "Full Stack Web Developer — Designed responsive Bootstrap layouts, built server-side PHP form validation and quotation request routing, configured MySQL database persistence, and implemented Google Translate localization hooks.",
+    highlights: [
+      "Multilingual Google Translate integration for international clientele",
+      "Dynamic project gallery showcases with responsive lightbox viewing",
+      "Streamlined quote request system and direct WhatsApp inquiry integration",
+      "Mobile-optimized Bootstrap architecture with fast page load performance"
+    ],
+    verified: true,
+    accentColor: "from-cyan-600 to-teal-700",
+    badgeColor: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20"
   }
 ];
 
@@ -360,11 +384,11 @@ export const workExperience = [
     technologies: ["React.js", "Node.js", "Express.js", "PHP", "Laravel", "MySQL", "REST APIs", "Git"]
   },
   {
-    company: "Ecareer International",
+    company: "Sky Round Service Private Limited",
     role: "PHP Developer + Digital Marketing Specialist",
     period: "September 2024 – April 2025",
     isCurrent: false,
-    location: "Digital Solutions & EdTech",
+    location: "Digital Solutions & Services",
     description: "Combined technical PHP backend engineering with digital marketing instrumentation, search engine optimization, and web analytics to maximize platform reach.",
     responsibilities: [
       "Engineered and maintained server-side PHP functionality, database interactions, and dynamic website modules.",
@@ -375,7 +399,7 @@ export const workExperience = [
     technologies: ["PHP", "MySQL", "JavaScript", "HTML/CSS", "Technical SEO", "Google Analytics", "Google Search Console"]
   },
   {
-    company: "Owl Pvt. Ltd.",
+    company: "HYBRID OWL PRIVATE LIMITED",
     role: "PHP Developer",
     period: "December 2023 – May 2024",
     isCurrent: false,

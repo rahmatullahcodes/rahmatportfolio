@@ -246,7 +246,7 @@ export default function Projects({ onOpenProjectModal }) {
         {/* Note on Verification */}
         <div className="mt-12 text-center text-xs text-slate-500 flex items-center justify-center gap-2">
           <ShieldCheck className="w-4 h-4 text-emerald-500" />
-          <span>All 5 listed platforms are active production websites from Md Rahmatullah Quraishi's resume.</span>
+          <span>All {projects.length} listed platforms are active production websites from Md Rahmatullah Quraishi's portfolio.</span>
         </div>
 
       </div>
