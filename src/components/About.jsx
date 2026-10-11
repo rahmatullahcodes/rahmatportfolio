@@ -71,7 +71,7 @@ export default function About({ onOpenResume }) {
           transition={{ duration: 0.5 }}
           className="max-w-3xl mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100/80 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100/80 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-sky-600 animate-pulse"></span>
             About Me & Engineering Focus
           </div>
@@ -98,7 +98,7 @@ export default function About({ onOpenResume }) {
                 key={idx}
                 className="group p-5 rounded-2xl bg-white border border-slate-200/90 shadow-card-light hover:border-sky-400 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-sky-600 group-hover:bg-sky-500 group-hover:text-white transition-colors duration-200 mb-3 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-sky-600 group-hover:bg-sky-500 group-hover:text-white transition-colors duration-200 mb-3 shadow-sm">
                   <Icon className="w-5 h-5" />
                 </div>
                 <div className="text-2xl font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors">
@@ -224,7 +224,7 @@ export default function About({ onOpenResume }) {
               ].map((highlight, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 p-2.5 rounded-xl bg-white border border-slate-200/80 hover:border-sky-300 hover:text-sky-800 transition-all shadow-2xs"
+                  className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 p-2.5 rounded-xl bg-white border border-slate-200/80 hover:border-sky-300 hover:text-sky-800 transition-all shadow-sm"
                 >
                   <CheckCircle2 className="w-4 h-4 text-sky-600 shrink-0" />
                   <span>{highlight}</span>
@@ -239,7 +239,7 @@ export default function About({ onOpenResume }) {
                   <Layers className="w-4 h-4 text-sky-600" />
                   Engineering Principles
                 </span>
-                <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 shadow-2xs">
+                <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 shadow-sm">
                   Client Focused
                 </span>
               </div>
@@ -277,3 +277,4 @@ export default function About({ onOpenResume }) {
     </section>
   );
 }
+

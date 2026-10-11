@@ -347,3 +347,4 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
     </section>
   );
 }
+

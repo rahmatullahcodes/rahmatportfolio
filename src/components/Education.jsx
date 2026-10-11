@@ -20,7 +20,7 @@ export default function Education() {
           transition={{ duration: 0.4 }}
           className="max-w-3xl mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-sky-600 animate-pulse"></span>
             Academic Foundation
           </div>
@@ -56,14 +56,14 @@ export default function Education() {
                   <div>
                     {/* Top Badge & Icon */}
                     <div className="flex items-center justify-between mb-5">
-                      <div className="p-3.5 rounded-2xl bg-white border border-slate-200 text-sky-600 group-hover:bg-gradient-to-br group-hover:from-sky-500 group-hover:to-blue-600 group-hover:text-white group-hover:scale-110 group-hover:shadow-glow-sm transition-all duration-300 shadow-2xs">
+                      <div className="p-3.5 rounded-2xl bg-white border border-slate-200 text-sky-600 group-hover:bg-gradient-to-br group-hover:from-sky-500 group-hover:to-blue-600 group-hover:text-white group-hover:scale-110 group-hover:shadow-glow-sm transition-all duration-300 shadow-sm">
                         {isMaster ? (
                           <GraduationCap className="w-6 h-6" />
                         ) : (
                           <BookOpen className="w-6 h-6" />
                         )}
                       </div>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold border border-sky-200 shadow-2xs">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold border border-sky-200 shadow-sm">
                         <Calendar className="w-3.5 h-3.5 text-sky-500" />
                         {item.completionYear}
                       </span>
@@ -106,3 +106,4 @@ export default function Education() {
     </section>
   );
 }
+

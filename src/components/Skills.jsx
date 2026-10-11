@@ -59,7 +59,7 @@ export default function Skills() {
             transition={{ duration: 0.4 }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-sky-600 animate-pulse"></span>
               Technical Stack & Skills
             </div>
@@ -173,7 +173,7 @@ export default function Skills() {
                       {category.skills.map((skill, idx) => (
                         <div
                           key={idx}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-sky-400 hover:text-sky-700 hover:shadow-glow-sm hover:scale-[1.04] transition-all duration-200 shadow-2xs cursor-default"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-sky-400 hover:text-sky-700 hover:shadow-glow-sm hover:scale-[1.04] transition-all duration-200 shadow-sm cursor-default"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
                           <span>{skill.name}</span>
@@ -229,3 +229,4 @@ export default function Skills() {
     </section>
   );
 }
+

@@ -28,7 +28,7 @@ export default function Experience() {
           transition={{ duration: 0.4 }}
           className="max-w-3xl mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-sky-600 animate-pulse"></span>
             Career Progression
           </div>
@@ -73,7 +73,7 @@ export default function Experience() {
                         {exp.role}
                       </h3>
                       {exp.isCurrent && (
-                        <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-2xs">
+                        <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-sm">
                           Current Role
                         </span>
                       )}
@@ -122,7 +122,7 @@ export default function Experience() {
                     {exp.technologies.map((tech, tIdx) => (
                       <span
                         key={tIdx}
-                        className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-100 group-hover:bg-sky-50/60 text-slate-700 group-hover:text-sky-800 border border-slate-200/80 group-hover:border-sky-200 transition-colors shadow-2xs hover:scale-105"
+                        className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-100 group-hover:bg-sky-50/60 text-slate-700 group-hover:text-sky-800 border border-slate-200/80 group-hover:border-sky-200 transition-colors shadow-sm hover:scale-105"
                       >
                         {tech}
                       </span>
@@ -139,3 +139,4 @@ export default function Experience() {
     </section>
   );
 }
+

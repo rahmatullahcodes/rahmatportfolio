@@ -52,7 +52,7 @@ export default function Projects({ onOpenProjectModal }) {
             transition={{ duration: 0.4 }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-sky-600 animate-pulse"></span>
               Featured Projects
             </div>
@@ -133,7 +133,7 @@ export default function Projects({ onOpenProjectModal }) {
                         </div>
                       </div>
 
-                      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shadow-2xs">
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shadow-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                         Verified Live
                       </span>
@@ -191,7 +191,7 @@ export default function Projects({ onOpenProjectModal }) {
                       </div>
 
                       {/* My Role & Contribution Highlight */}
-                      <div className="p-3.5 rounded-xl bg-white border border-slate-200/90 text-xs text-slate-700 leading-relaxed shadow-2xs group-hover:border-sky-200 transition-colors">
+                      <div className="p-3.5 rounded-xl bg-white border border-slate-200/90 text-xs text-slate-700 leading-relaxed shadow-sm group-hover:border-sky-200 transition-colors">
                         <strong className="text-slate-900 block mb-1">My Role & Architecture:</strong>
                         {project.roleContribution}
                       </div>
@@ -205,7 +205,7 @@ export default function Projects({ onOpenProjectModal }) {
                           {project.technologies.map((tech, idx) => (
                             <span
                               key={idx}
-                              className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-sky-400 hover:text-sky-700 transition-colors shadow-2xs"
+                              className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-sky-400 hover:text-sky-700 transition-colors shadow-sm"
                             >
                               {tech}
                             </span>
@@ -253,3 +253,4 @@ export default function Projects({ onOpenProjectModal }) {
     </section>
   );
 }
+
