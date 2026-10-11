@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, 
   FileText, 
@@ -24,6 +24,13 @@ import {
 import TiltCard from './TiltCard';
 import { personalInfo } from '../data/portfolioData';
 
+const rotatingTitles = [
+  "Full Stack Developer",
+  "React.js & Node.js Specialist",
+  "PHP & Laravel Architect",
+  "REST API & Cloud Engineer"
+];
+
 const techBadges = [
   { name: 'React.js', icon: '⚛️', color: 'text-sky-400 bg-sky-950/70 border-sky-700/60 shadow-sky-500/10' },
   { name: 'Node.js', icon: '🟢', color: 'text-emerald-400 bg-emerald-950/70 border-emerald-700/60 shadow-emerald-500/10' },
@@ -46,6 +53,15 @@ const techBadges = [
 ];
 
 export default function Hero({ onOpenResume, onCopyEmail }) {
+  const [titleIdx, setTitleIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTitleIdx(prev => (prev + 1) % rotatingTitles.length);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section
       id="home"
@@ -76,7 +92,9 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
               </span>
               <span className="font-semibold text-slate-200">Open for Freelance & Full-Stack Contracts</span>
               <span className="text-slate-600">•</span>
-              <span className="text-sky-400 font-bold group-hover:text-sky-300 transition-colors">{personalInfo.experienceYears} Years Exp</span>
+              <span className="text-emerald-400 font-bold group-hover:text-emerald-300 transition-colors">Response &lt; 2 hrs</span>
+              <span className="text-slate-600 hidden sm:inline">•</span>
+              <span className="text-sky-400 font-bold group-hover:text-sky-300 transition-colors hidden sm:inline">{personalInfo.experienceYears} Years Exp</span>
             </motion.div>
 
             {/* Name & Title */}
@@ -92,8 +110,21 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
                   {personalInfo.name}
                 </span>
               </h1>
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xl sm:text-2xl font-bold tracking-tight">
-                <span className="text-sky-400">{personalInfo.title}</span>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xl sm:text-2xl font-bold tracking-tight min-h-[36px]">
+                <div className="relative overflow-hidden inline-flex">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={titleIdx}
+                      initial={{ y: 22, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -22, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      className="text-sky-400 font-bold"
+                    >
+                      {rotatingTitles[titleIdx]}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
                 <span className="text-slate-600 font-light">/</span>
                 <span className="text-slate-300 font-medium text-lg sm:text-xl">Creative Engineer</span>
               </div>
@@ -236,19 +267,19 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
 
             {/* Floating Achievement Pill (Top Right) */}
             <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-6 -right-3 z-30 hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/95 border border-sky-400/50 text-white text-xs font-bold shadow-glow-sm backdrop-blur-md"
+              animate={{ y: [0, -8, 0], rotate: [0, 1.5, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-4 -right-2 sm:-top-6 sm:-right-4 z-30 flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-900/95 border border-sky-400/60 text-white text-[11px] sm:text-xs font-bold shadow-glow-sm backdrop-blur-md"
             >
               <Sparkles className="w-3.5 h-3.5 text-emerald-400 shrink-0 animate-spin-slow" />
-              <span>Full Stack Verified</span>
+              <span>100% Job Success Rate</span>
             </motion.div>
 
             {/* Floating Achievement Pill (Bottom Left) */}
             <motion.div
-              animate={{ y: [0, 10, 0] }}
+              animate={{ y: [0, 8, 0], rotate: [0, -1.5, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -bottom-6 -left-4 z-30 hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/95 border border-slate-700/90 text-white text-xs font-bold shadow-2xl backdrop-blur-md"
+              className="absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-4 z-30 flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-900/95 border border-slate-700/90 text-white text-[11px] sm:text-xs font-bold shadow-2xl backdrop-blur-md"
             >
               <Layers className="w-3.5 h-3.5 text-sky-400 shrink-0" />
               <span>React • Node • PHP • MySQL</span>

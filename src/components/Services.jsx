@@ -82,9 +82,20 @@ export default function Services({ onSelectService }) {
               >
                 <TiltCard
                   maxTilt={6}
-                  glowColor="rgba(56, 189, 248, 0.12)"
-                  className="group relative flex flex-col justify-between h-full p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 hover:border-sky-400 hover:shadow-card-hover transition-all duration-300"
+                  glowColor="rgba(56, 189, 248, 0.16)"
+                  className={`group relative flex flex-col justify-between h-full p-6 sm:p-7 rounded-2xl bg-white border transition-all duration-300 ${
+                    index === 0 
+                      ? 'border-sky-400/80 shadow-glow-sm hover:shadow-card-hover' 
+                      : 'border-slate-200/90 hover:border-sky-400 hover:shadow-card-hover'
+                  }`}
                 >
+                  {index === 0 && (
+                    <div className="absolute -top-3 left-6 z-20 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider shadow-sm">
+                      <Sparkles className="w-3 h-3 text-amber-300 animate-spin-slow" />
+                      <span>⭐ Most Requested</span>
+                    </div>
+                  )}
+
                   <div>
                     {/* Top Header: Icon on Left & Clean Number Badge on Right */}
                     <div className="flex items-center justify-between mb-5">

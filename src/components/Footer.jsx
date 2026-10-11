@@ -43,7 +43,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 border border-slate-800 transition-colors"
+                className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 border border-slate-800 hover:border-sky-500/40 hover:scale-110 hover:-translate-y-1 transition-all shadow-sm"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
@@ -52,7 +52,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 border border-slate-800 transition-colors"
+                className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 border border-slate-800 hover:border-sky-500/40 hover:scale-110 hover:-translate-y-1 transition-all shadow-sm"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -62,14 +62,14 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="YouTube Channel (@TechnicalGuddu01)"
                 title="YouTube (@TechnicalGuddu01)"
-                className="p-2 rounded-lg bg-slate-900 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 border border-slate-800 hover:border-rose-500/40 transition-colors"
+                className="p-2.5 rounded-xl bg-slate-900 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 border border-slate-800 hover:border-rose-500/40 hover:scale-110 hover:-translate-y-1 transition-all shadow-sm"
               >
                 <Youtube className="w-4 h-4" />
               </a>
               <a
                 href={`mailto:${personalInfo.email}`}
                 aria-label="Email"
-                className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 border border-slate-800 transition-colors"
+                className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 border border-slate-800 hover:border-sky-500/40 hover:scale-110 hover:-translate-y-1 transition-all shadow-sm"
               >
                 <Mail className="w-4 h-4" />
               </a>
@@ -79,7 +79,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="WhatsApp (+91 8969361100)"
                 title="WhatsApp: +91 8969361100"
-                className="p-2 rounded-lg bg-slate-900 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-400 border border-slate-800 hover:border-emerald-500/40 transition-colors"
+                className="p-2.5 rounded-xl bg-slate-900 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-400 border border-slate-800 hover:border-emerald-500/40 hover:scale-110 hover:-translate-y-1 transition-all shadow-sm"
               >
                 <MessageSquare className="w-4 h-4" />
               </a>

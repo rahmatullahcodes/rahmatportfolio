@@ -98,25 +98,35 @@ export default function Skills() {
             <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-slate-100 border border-slate-200/80">
               <button
                 onClick={() => setSelectedCategory('all')}
-                className={`relative px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                  selectedCategory === 'all'
-                    ? 'bg-slate-900 text-white shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                className={`relative px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                  selectedCategory === 'all' ? 'text-white' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                All Domains
+                {selectedCategory === 'all' && (
+                  <motion.div
+                    layoutId="skillActivePill"
+                    className="absolute inset-0 bg-slate-900 rounded-lg shadow-sm"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">All Domains</span>
               </button>
               {skillCategories.slice(0, 4).map(cat => (
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`relative px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                    selectedCategory === cat.id
-                      ? 'bg-slate-900 text-white shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
+                  className={`relative px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                    selectedCategory === cat.id ? 'text-white' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  {cat.title.split(' ')[0]}
+                  {selectedCategory === cat.id && (
+                    <motion.div
+                      layoutId="skillActivePill"
+                      className="absolute inset-0 bg-slate-900 rounded-lg shadow-sm"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{cat.title.split(' ')[0]}</span>
                 </button>
               ))}
             </div>

@@ -75,13 +75,18 @@ export default function Projects({ onOpenProjectModal }) {
               <button
                 key={tab.id}
                 onClick={() => setFilter(tab.id)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                  filter === tab.id
-                    ? 'bg-slate-900 text-white shadow-sm font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
+                className={`relative px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                  filter === tab.id ? 'text-white font-bold' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                {tab.label}
+                {filter === tab.id && (
+                  <motion.div
+                    layoutId="projectActiveFilter"
+                    className="absolute inset-0 bg-slate-900 rounded-lg shadow-sm"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{tab.label}</span>
               </button>
             ))}
           </div>

@@ -15,6 +15,7 @@ import ProjectModal from './components/ProjectModal';
 import Toast from './components/Toast';
 import ParticleBackground from './components/ParticleBackground';
 import CustomCursor from './components/CustomCursor';
+import FloatingQuickConnect from './components/FloatingQuickConnect';
 import { personalInfo } from './data/portfolioData';
 
 export default function App() {
@@ -112,6 +113,9 @@ export default function App() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Floating Persistent Quick Connect & WhatsApp Beacon */}
+      <FloatingQuickConnect onOpenResume={() => setIsResumeOpen(true)} />
 
       {/* Modals & Feedback Notifications */}
       <ResumeModal

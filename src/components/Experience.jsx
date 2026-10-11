@@ -56,7 +56,11 @@ export default function Experience() {
                 exp.isCurrent 
                   ? 'bg-sky-500 border-sky-100 ring-4 ring-sky-500/25 shadow-glow-sm' 
                   : 'bg-white border-slate-300 group-hover:border-sky-500 group-hover:ring-4 group-hover:ring-sky-200'
-              } transition-all duration-300`} />
+              } transition-all duration-300`}>
+                {exp.isCurrent && (
+                  <span className="absolute -inset-1 rounded-full bg-sky-400 animate-ping opacity-40 pointer-events-none" />
+                )}
+              </div>
 
               {/* Card Container with Interactive Lift */}
               <motion.div
