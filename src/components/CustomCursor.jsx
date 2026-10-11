@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export default function CustomCursor() {
@@ -6,29 +6,28 @@ export default function CustomCursor() {
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [ripple, setRipple] = useState(null);
 
-  // Raw mouse coordinates
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
+  // Precision mouse position
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
 
-  // Smooth springs for outer ring trail
-  const springConfig = { damping: 26, stiffness: 350, mass: 0.5 };
-  const smoothX = useSpring(cursorX, springConfig);
-  const smoothY = useSpring(cursorY, springConfig);
+  // Buttery-smooth spring motion for the ambient light aura
+  const auraX = useSpring(mouseX, { damping: 28, stiffness: 380, mass: 0.4 });
+  const auraY = useSpring(mouseY, { damping: 28, stiffness: 380, mass: 0.4 });
 
   useEffect(() => {
-    // Check if touch device - if so, don't show custom cursor
+    // Disable on touch devices for native performance
     if (window.matchMedia('(pointer: coarse)').matches) {
       setIsTouchDevice(true);
       return;
     }
 
     const handleMouseMove = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
       if (!isVisible) setIsVisible(true);
 
-      // Check if hovering over clickable or interactive element
       const target = e.target;
       if (!target) return;
 
@@ -46,9 +45,18 @@ export default function CustomCursor() {
       setIsPointer(isInteractive);
     };
 
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
+    const handleMouseDown = (e) => {
+      setIsClicking(true);
+      // Trigger subtle light ripple on click
+      setRipple({
+        x: e.clientX,
+        y: e.clientY,
+        id: Date.now()
+      });
+      setTimeout(() => setRipple(null), 500);
+    };
 
+    const handleMouseUp = () => setIsClicking(false);
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
@@ -65,56 +73,79 @@ export default function CustomCursor() {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [cursorX, cursorY, isVisible]);
+  }, [mouseX, mouseY, isVisible]);
 
   if (isTouchDevice) return null;
 
   return (
     <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
-      {/* Outer Smooth Trailing Ring */}
+      {/* 1. Fluid Ambient Neon Light Halo (No clumsy hollow ring, just soft radiant light) */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full border border-sky-400/60 pointer-events-none backdrop-blur-[1px]"
+        className="fixed top-0 left-0 rounded-full pointer-events-none"
         style={{
-          x: smoothX,
-          y: smoothY,
+          x: auraX,
+          y: auraY,
           translateX: '-50%',
           translateY: '-50%',
-          width: isPointer ? 48 : 32,
-          height: isPointer ? 48 : 32,
-          backgroundColor: isPointer ? 'rgba(56, 189, 248, 0.12)' : 'rgba(56, 189, 248, 0.04)',
-          borderColor: isPointer ? '#38BDF8' : 'rgba(56, 189, 248, 0.45)',
-          boxShadow: isPointer ? '0 0 20px rgba(56, 189, 248, 0.35)' : 'none',
+          width: isPointer ? 64 : 36,
+          height: isPointer ? 64 : 36,
+          background: isPointer
+            ? 'radial-gradient(circle, rgba(56, 189, 248, 0.28) 0%, rgba(2, 132, 199, 0.12) 50%, transparent 75%)'
+            : 'radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 70%)',
+          filter: 'blur(4px)',
         }}
         animate={{
-          scale: isClicking ? 0.8 : isPointer ? 1.15 : 1,
+          scale: isClicking ? 0.75 : isPointer ? 1.3 : 1,
           opacity: isVisible ? 1 : 0,
         }}
         transition={{
           type: 'spring',
-          damping: 24,
+          damping: 25,
           stiffness: 400,
         }}
       />
 
-      {/* Inner Pinpoint Glow Dot */}
+      {/* 2. Micro Glowing Precision Spark (Tiny, crisp, and non-intrusive) */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full bg-sky-400 pointer-events-none shadow-glow-sm"
+        className="fixed top-0 left-0 rounded-full pointer-events-none"
         style={{
-          x: cursorX,
-          y: cursorY,
+          x: mouseX,
+          y: mouseY,
           translateX: '-50%',
           translateY: '-50%',
-          width: isPointer ? 6 : 5,
-          height: isPointer ? 6 : 5,
+          width: isPointer ? 7 : 5,
+          height: isPointer ? 7 : 5,
+          backgroundColor: isPointer ? '#38BDF8' : '#7DD3FC',
+          boxShadow: isPointer
+            ? '0 0 10px #38BDF8, 0 0 20px rgba(56, 189, 248, 0.6)'
+            : '0 0 8px rgba(56, 189, 248, 0.8), 0 0 14px rgba(2, 132, 199, 0.4)',
         }}
         animate={{
-          scale: isClicking ? 1.4 : isPointer ? 1.2 : 1,
+          scale: isClicking ? 1.5 : isPointer ? 1.25 : 1,
           opacity: isVisible ? 1 : 0,
         }}
         transition={{
-          duration: 0.1,
+          duration: 0.12,
         }}
       />
+
+      {/* 3. Subtle Click Ripple Wave */}
+      {ripple && (
+        <motion.div
+          key={ripple.id}
+          initial={{ opacity: 0.7, scale: 0.2 }}
+          animate={{ opacity: 0, scale: 2 }}
+          transition={{ duration: 0.45, ease: 'easeOut' }}
+          className="fixed rounded-full pointer-events-none border border-sky-400/80 bg-sky-400/10"
+          style={{
+            top: ripple.y,
+            left: ripple.x,
+            width: 32,
+            height: 32,
+            transform: 'translate(-50%, -50%)',
+          }}
+        />
+      )}
     </div>
   );
 }
