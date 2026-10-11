@@ -129,31 +129,26 @@ export default function Contact({ prefilledService, onShowToast }) {
     setSubmitting(true);
 
     try {
-      // Optional Formspree integration via environment variable
-      const formspreeId = import.meta.env.VITE_FORMSPREE_ID;
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          projectType: formData.projectType,
+          budget: formData.budget,
+          message: formData.description,
+          honeypot: formData.honeypot
+        })
+      });
 
-      if (formspreeId) {
-        const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            projectType: formData.projectType,
-            budget: formData.budget,
-            message: formData.description
-          })
-        });
+      const result = await response.json().catch(() => ({}));
 
-        if (!response.ok) {
-          throw new Error('Service response error. Please reach out via email directly.');
-        }
-      } else {
-        // Simulated network delay
-        await new Promise(resolve => setTimeout(resolve, 800));
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Unable to deliver inquiry. Please email directly at mdrahmatullahquraishi@gmail.com.');
       }
 
       setSubmitted(true);
@@ -182,7 +177,7 @@ export default function Contact({ prefilledService, onShowToast }) {
       if (onShowToast) {
         onShowToast({
           type: 'success',
-          message: 'Thank you! Your project inquiry has been recorded.'
+          message: 'Inquiry sent! Email delivered directly to Md Rahmatullah Quraishi.'
         });
       }
     } catch (err) {
@@ -190,7 +185,7 @@ export default function Contact({ prefilledService, onShowToast }) {
       if (onShowToast) {
         onShowToast({
           type: 'error',
-          message: 'Could not send message. Please contact via email directly.'
+          message: err.message || 'Could not send message. Please email directly.'
         });
       }
     } finally {
