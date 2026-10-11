@@ -18,6 +18,7 @@ import {
   GraduationCap
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import TiltCard from './TiltCard';
 
 const corePillars = [
   {
@@ -125,7 +126,11 @@ export default function About({ onOpenResume }) {
             transition={{ duration: 0.5 }}
             className="lg:col-span-5 space-y-4"
           >
-            <div className="p-5 sm:p-6 rounded-3xl bg-white border border-slate-200/90 shadow-card-light space-y-5">
+            <TiltCard
+              maxTilt={6}
+              glowColor="rgba(56, 189, 248, 0.12)"
+              className="p-5 sm:p-6 rounded-3xl bg-white border border-slate-200/90 shadow-card-light space-y-5"
+            >
               
               {/* Photo Frame with Subtle Blue Border */}
               <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-slate-900 border-2 border-sky-400/30 shadow-md group">
@@ -188,7 +193,7 @@ export default function About({ onOpenResume }) {
                 </a>
               </div>
 
-            </div>
+            </TiltCard>
           </motion.div>
 
           {/* Right Column: Biography, Highlights, and Philosophy Pillars */}

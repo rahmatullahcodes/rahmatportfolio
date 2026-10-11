@@ -59,7 +59,11 @@ export default function Experience() {
               } transition-all duration-300`} />
 
               {/* Card Container with Interactive Lift */}
-              <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/90 group-hover:border-sky-400 group-hover:shadow-card-hover group-hover:translate-x-1 transition-all duration-300">
+              <motion.div
+                whileHover={{ x: 8 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/90 group-hover:border-sky-400 group-hover:shadow-card-hover transition-all duration-300"
+              >
                 
                 {/* Header Information */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
@@ -126,7 +130,7 @@ export default function Experience() {
                   </div>
                 </div>
 
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>

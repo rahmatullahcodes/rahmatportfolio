@@ -14,6 +14,7 @@ import {
   Sparkles,
   Check
 } from 'lucide-react';
+import TiltCard from './TiltCard';
 import { services } from '../data/portfolioData';
 
 const serviceIcons = {
@@ -65,7 +66,7 @@ export default function Services({ onSelectService }) {
           </p>
         </motion.div>
 
-        {/* Services 8-Card Grid with Elevated Hover Cards */}
+        {/* Services 8-Card Grid with 3D Tilt Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => {
             const Icon = serviceIcons[service.iconName] || Globe;
@@ -78,53 +79,58 @@ export default function Services({ onSelectService }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: index * 0.05 }}
-                className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 hover:border-sky-400 hover:shadow-card-hover hover:-translate-y-2 transition-all duration-300 overflow-hidden"
               >
-                {/* Number Watermark */}
-                <span className="absolute top-4 right-5 text-2xl font-black font-mono text-slate-200 group-hover:text-sky-200/80 transition-colors pointer-events-none select-none">
-                  {numberLabel}
-                </span>
+                <TiltCard
+                  maxTilt={6}
+                  glowColor="rgba(56, 189, 248, 0.12)"
+                  className="group relative flex flex-col justify-between h-full p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 hover:border-sky-400 hover:shadow-card-hover transition-all duration-300"
+                >
+                  {/* Number Watermark */}
+                  <span className="absolute top-4 right-5 text-2xl font-black font-mono text-slate-200 group-hover:text-sky-200/80 transition-colors pointer-events-none select-none">
+                    {numberLabel}
+                  </span>
 
-                <div>
-                  {/* Icon & Category */}
-                  <div className="w-13 h-13 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-center text-sky-600 group-hover:bg-gradient-to-br group-hover:from-sky-500 group-hover:to-blue-600 group-hover:text-white group-hover:scale-110 group-hover:shadow-glow-sm transition-all duration-300 mb-5 shadow-2xs">
-                    <Icon className="w-6 h-6" />
+                  <div>
+                    {/* Icon & Category */}
+                    <div className="w-13 h-13 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-center text-sky-600 group-hover:bg-gradient-to-br group-hover:from-sky-500 group-hover:to-blue-600 group-hover:text-white group-hover:scale-110 group-hover:shadow-glow-sm transition-all duration-300 mb-5 shadow-2xs">
+                      <Icon className="w-6 h-6" />
+                    </div>
+
+                    {/* Service Title */}
+                    <h3 className="text-base font-bold text-slate-900 group-hover:text-sky-600 transition-colors mb-2.5 leading-snug">
+                      {service.title}
+                    </h3>
+
+                    {/* Short Benefit-Focused Description */}
+                    <p className="text-xs text-slate-600 leading-relaxed mb-5">
+                      {service.shortDesc}
+                    </p>
+
+                    {/* Key Deliverables Bullet Points */}
+                    <div className="space-y-2 mb-6">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+                        Deliverables:
+                      </span>
+                      {service.deliverables.map((item, idx) => (
+                        <div key={idx} className="flex items-start gap-2 text-xs text-slate-700 group-hover:text-slate-800 transition-colors">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5 group-hover:text-emerald-600" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Service Title */}
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-sky-600 transition-colors mb-2.5 leading-snug">
-                    {service.title}
-                  </h3>
-
-                  {/* Short Benefit-Focused Description */}
-                  <p className="text-xs text-slate-600 leading-relaxed mb-5">
-                    {service.shortDesc}
-                  </p>
-
-                  {/* Key Deliverables Bullet Points */}
-                  <div className="space-y-2 mb-6">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
-                      Deliverables:
-                    </span>
-                    {service.deliverables.map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-xs text-slate-700 group-hover:text-slate-800 transition-colors">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5 group-hover:text-emerald-600" />
-                        <span>{item}</span>
-                      </div>
-                    ))}
+                  {/* Inquiry CTA Button */}
+                  <div className="pt-4 border-t border-slate-100 mt-auto">
+                    <button
+                      onClick={() => handleServiceInquiry(service.title)}
+                      className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-900 text-slate-700 hover:text-white text-xs font-bold transition-all duration-200 group/btn border border-slate-100 hover:border-slate-800 shadow-2xs"
+                    >
+                      <span>Inquire About Service</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-sky-400 transition-transform group-hover/btn:translate-x-1" />
+                    </button>
                   </div>
-                </div>
-
-                {/* Inquiry CTA Button */}
-                <div className="pt-4 border-t border-slate-100 mt-auto">
-                  <button
-                    onClick={() => handleServiceInquiry(service.title)}
-                    className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-900 text-slate-700 hover:text-white text-xs font-bold transition-all duration-200 group/btn border border-slate-100 hover:border-slate-800 shadow-2xs"
-                  >
-                    <span>Inquire About Service</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-sky-400 transition-transform group-hover/btn:translate-x-1" />
-                  </button>
-                </div>
+                </TiltCard>
               </motion.div>
             );
           })}
@@ -148,13 +154,15 @@ export default function Services({ onSelectService }) {
               I can architect your entire concept from database schema and REST API endpoints to a high-converting reactive UI and reliable production hosting.
             </p>
           </div>
-          <a
+          <motion.a
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
             href="#contact"
-            className="shine-button inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs sm:text-sm font-bold shadow-glow-sm hover:shadow-glow-md hover:scale-[1.03] active:scale-[0.98] transition-all shrink-0 relative z-10"
+            className="shine-button inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs sm:text-sm font-bold shadow-glow-sm hover:shadow-glow-md transition-all shrink-0 relative z-10"
           >
             <span>Request a Project Quote</span>
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </motion.a>
         </motion.div>
 
       </div>
