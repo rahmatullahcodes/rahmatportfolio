@@ -129,10 +129,10 @@ Follow these straightforward steps to deploy your portfolio to [Vercel](https://
    - **Root Directory**: `./` (default)
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
-5. *(Optional)* **Environment Variables**:
-   If you wish to use Formspree for the contact form:
-   - Name: `VITE_FORMSPREE_ID`
-   - Value: `<your-formspree-id>`
+5. **Environment Variables**:
+   Under **Environment Variables**, add the following two keys so the contact form can dispatch emails in production:
+   - **`GMAIL_USER`**: `mdrahmatullahquraishi@gmail.com`
+   - **`GMAIL_APP_PASSWORD`**: `ataekazlfggpkvcr`
 6. Click **"Deploy"**.
 
 Within 30–60 seconds, Vercel will complete the build and assign you a live production URL (e.g., `https://rahmatullah-portfolio.vercel.app`).
@@ -150,18 +150,14 @@ Within 30–60 seconds, Vercel will complete the build and assign you a live pro
 
 ## 🔒 Environment Variables
 
-Copy `.env.example` to `.env` if you want to configure third-party form delivery:
+The project uses serverless email routing. Credentials are kept private in `.env` (ignored by Git) and configured in Vercel:
 
-```bash
-cp .env.example .env
-```
+| Variable | Description | Value |
+| :--- | :--- | :--- |
+| `GMAIL_USER` | Your Gmail address where project inquiries will be sent | `mdrahmatullahquraishi@gmail.com` |
+| `GMAIL_APP_PASSWORD` | 16-character Google App Password for SMTP authentication | `ataekazlfggpkvcr` |
 
-| Variable | Description |
-| :--- | :--- |
-| `VITE_FORMSPREE_ID` | Formspree form ID to receive inquiries directly in your inbox. |
-| `VITE_SITE_URL` | Canonical URL of your portfolio for SEO validation. |
-
-*Note: If no Formspree ID is provided, the contact form demonstrates instant validation and provides direct one-click email copying and mailto actions.*
+*Security Notice: The app password is executed strictly on the backend / serverless runtime (`api/contact.js`) and is NEVER exposed in the client-side JavaScript bundle.*
 
 ---
 
