@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Printer, Download, Mail, ExternalLink, Calendar, MapPin, Briefcase, GraduationCap, Code } from 'lucide-react';
+import { X, Printer, Download, Mail, Phone, ExternalLink, Calendar, MapPin, Briefcase, GraduationCap, Code } from 'lucide-react';
 import { personalInfo, workExperience, education, skillCategories } from '../data/portfolioData';
 
 export default function ResumeModal({ isOpen, onClose }) {
@@ -84,6 +84,12 @@ export default function ResumeModal({ isOpen, onClose }) {
                       <Mail className="w-4 h-4 text-sky-600 shrink-0" />
                       <a href={`mailto:${personalInfo.email}`} className="hover:text-sky-600">
                         {personalInfo.email}
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-sky-600 shrink-0" />
+                      <a href={`tel:${personalInfo.phoneRaw}`} className="hover:text-sky-600">
+                        {personalInfo.phone}
                       </a>
                     </div>
                     <div className="flex items-center gap-2">

@@ -22,7 +22,8 @@ import {
   Smartphone,
   TrendingUp,
   HelpCircle,
-  Youtube
+  Youtube,
+  Phone
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { personalInfo } from '../data/portfolioData';
@@ -55,6 +56,7 @@ export default function Contact({ prefilledService, onShowToast }) {
   });
 
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formError, setFormError] = useState('');
@@ -78,6 +80,18 @@ export default function Contact({ prefilledService, onShowToast }) {
       });
     }
     setTimeout(() => setCopiedEmail(false), 3000);
+  };
+
+  const handleCopyPhone = () => {
+    navigator.clipboard.writeText(personalInfo.phone);
+    setCopiedPhone(true);
+    if (onShowToast) {
+      onShowToast({
+        type: 'success',
+        message: 'Phone number copied to clipboard: ' + personalInfo.phone
+      });
+    }
+    setTimeout(() => setCopiedPhone(false), 3000);
   };
 
   const handleChange = (e) => {
@@ -255,6 +269,37 @@ export default function Contact({ prefilledService, onShowToast }) {
                 </button>
               </div>
 
+              {/* Direct Phone / Call */}
+              <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 group">
+                <div className="flex items-center gap-3 overflow-hidden">
+                  <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400 group-hover:scale-110 transition-transform shrink-0">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div className="truncate">
+                    <span className="text-[11px] text-slate-400 block font-medium">Phone & WhatsApp</span>
+                    <a
+                      href={`tel:${personalInfo.phoneRaw}`}
+                      className="text-xs sm:text-sm font-semibold text-white hover:text-emerald-400 transition-colors truncate block font-mono"
+                    >
+                      {personalInfo.phone}
+                    </a>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleCopyPhone}
+                  className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all hover:scale-105 shrink-0 ml-2 shadow-sm"
+                  title="Copy phone number"
+                  aria-label="Copy phone"
+                >
+                  {copiedPhone ? (
+                    <Check className="w-4 h-4 text-emerald-400" />
+                  ) : (
+                    <Copy className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+
               {/* Response Time Guarantee */}
               <div className="flex items-center gap-2.5 text-xs text-slate-400 pt-1">
                 <Clock className="w-4 h-4 text-sky-400 shrink-0" />
@@ -333,7 +378,10 @@ export default function Contact({ prefilledService, onShowToast }) {
                     <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:scale-110 transition-transform">
                       <MessageSquare className="w-4 h-4" />
                     </div>
-                    <span className="text-xs sm:text-sm font-semibold">WhatsApp Quick Chat</span>
+                    <div>
+                      <span className="text-xs sm:text-sm font-semibold block">WhatsApp Quick Chat</span>
+                      <span className="text-[11px] text-emerald-400 font-mono">+91 8969361100</span>
+                    </div>
                   </div>
                   <span className="text-xs text-emerald-400 group-hover:translate-x-1 transition-transform font-bold">
                     Chat Now →

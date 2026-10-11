@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Heart, Github, Linkedin, Mail, ExternalLink, Youtube } from 'lucide-react';
+import { ArrowUp, Heart, Github, Linkedin, Mail, ExternalLink, Youtube, MessageSquare } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export default function Footer() {
@@ -72,6 +72,16 @@ export default function Footer() {
                 className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 border border-slate-800 transition-colors"
               >
                 <Mail className="w-4 h-4" />
+              </a>
+              <a
+                href={personalInfo.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp (+91 8969361100)"
+                title="WhatsApp: +91 8969361100"
+                className="p-2 rounded-lg bg-slate-900 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-400 border border-slate-800 hover:border-emerald-500/40 transition-colors"
+              >
+                <MessageSquare className="w-4 h-4" />
               </a>
             </div>
           </div>
