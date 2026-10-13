@@ -19,7 +19,11 @@ import Toast from './components/Toast';
 import ParticleBackground from './components/ParticleBackground';
 import CustomCursor from './components/CustomCursor';
 import FloatingQuickConnect from './components/FloatingQuickConnect';
+import BlogList from './components/BlogList';
+import BlogDetail from './components/BlogDetail';
+import BlogPreviewSection from './components/BlogPreviewSection';
 import { personalInfo } from './data/portfolioData';
+import { getBlogBySlug } from './data/blogs';
 
 export default function App() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
@@ -27,6 +31,10 @@ export default function App() {
   const [prefilledService, setPrefilledService] = useState('');
   const [toast, setToast] = useState(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+
+  // Routing State: 'portfolio' | 'blog' | 'blog-detail'
+  const [currentView, setCurrentView] = useState('portfolio');
+  const [currentBlogSlug, setCurrentBlogSlug] = useState(null);
 
   // Top Scroll Progress Bar
   const { scrollYProgress } = useScroll();
@@ -36,6 +44,38 @@ export default function App() {
     restDelta: 0.001
   });
 
+  // Parse Initial URL Route & Listen for Popstate (Back/Forward)
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const pathname = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+
+      if (pathname.startsWith('/blog/') && pathname.length > 6) {
+        const slug = pathname.replace('/blog/', '').replace(/\/$/, '');
+        if (getBlogBySlug(slug)) {
+          setCurrentView('blog-detail');
+          setCurrentBlogSlug(slug);
+          return;
+        }
+      }
+
+      if (pathname === '/blog' || pathname === '/blog/' || hash === '#blog') {
+        setCurrentView('blog');
+        setCurrentBlogSlug(null);
+        return;
+      }
+
+      // Default: Portfolio Home
+      setCurrentView('portfolio');
+      setCurrentBlogSlug(null);
+    };
+
+    handleLocationChange();
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
+  }, []);
+
+  // Mouse Glow Spotlight
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePos({ x: e.clientX, y: e.clientY });
@@ -43,6 +83,35 @@ export default function App() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Navigation Handlers
+  const handleNavigateBlog = (slug = null) => {
+    if (slug) {
+      setCurrentView('blog-detail');
+      setCurrentBlogSlug(slug);
+      window.history.pushState(null, '', `/blog/${slug}`);
+    } else {
+      setCurrentView('blog');
+      setCurrentBlogSlug(null);
+      window.history.pushState(null, '', '/blog');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigateHome = (anchor = '#home') => {
+    setCurrentView('portfolio');
+    setCurrentBlogSlug(null);
+    window.history.pushState(null, '', anchor === '#home' ? '/' : anchor);
+
+    setTimeout(() => {
+      if (anchor && anchor !== '#home') {
+        const el = document.querySelector(anchor);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 50);
+  };
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(personalInfo.email);
@@ -79,52 +148,82 @@ export default function App() {
       />
 
       {/* Navigation Header */}
-      <Navbar onOpenResume={() => setIsResumeOpen(true)} />
+      <Navbar
+        onOpenResume={() => setIsResumeOpen(true)}
+        currentView={currentView}
+        onNavigateHome={handleNavigateHome}
+        onNavigateBlog={() => handleNavigateBlog()}
+      />
 
-      {/* Main Content Sections */}
+      {/* Main Content Router */}
       <main className="relative z-10">
-        {/* Hero Section */}
-        <Hero
-          onOpenResume={() => setIsResumeOpen(true)}
-          onCopyEmail={handleCopyEmail}
-        />
+        {currentView === 'blog' && (
+          <BlogList
+            onSelectBlog={(slug) => handleNavigateBlog(slug)}
+            onBackToPortfolio={() => handleNavigateHome('#home')}
+          />
+        )}
 
-        {/* About Section */}
-        <About onOpenResume={() => setIsResumeOpen(true)} />
+        {currentView === 'blog-detail' && (
+          <BlogDetail
+            slug={currentBlogSlug}
+            onNavigateBlog={(slug) => handleNavigateBlog(slug)}
+            onBackToPortfolio={() => handleNavigateHome('#home')}
+          />
+        )}
 
-        {/* Skills Section */}
-        <Skills />
+        {currentView === 'portfolio' && (
+          <>
+            {/* Hero Section */}
+            <Hero
+              onOpenResume={() => setIsResumeOpen(true)}
+              onCopyEmail={handleCopyEmail}
+            />
 
-        {/* Services Section */}
-        <Services onSelectService={handleSelectService} />
+            {/* About Section */}
+            <About onOpenResume={() => setIsResumeOpen(true)} />
 
-        {/* Featured Projects Section */}
-        <Projects onOpenProjectModal={(project) => setSelectedProject(project)} />
+            {/* Skills Section */}
+            <Skills />
 
-        {/* 4-Step Engineering Methodology */}
-        <Process />
+            {/* Services Section */}
+            <Services onSelectService={handleSelectService} />
 
-        {/* Client Social Proof & Testimonials */}
-        <Testimonials />
+            {/* Featured Projects Section */}
+            <Projects onOpenProjectModal={(project) => setSelectedProject(project)} />
 
-        {/* Work Experience Section */}
-        <Experience />
+            {/* 4-Step Engineering Methodology */}
+            <Process />
 
-        {/* Education Section */}
-        <Education />
+            {/* Client Social Proof & Testimonials */}
+            <Testimonials />
 
-        {/* Frequently Asked Questions */}
-        <FAQ />
+            {/* Work Experience Section */}
+            <Experience />
 
-        {/* Contact & Lead Generation Section */}
-        <Contact
-          prefilledService={prefilledService}
-          onShowToast={(t) => setToast(t)}
-        />
+            {/* Education Section */}
+            <Education />
+
+            {/* Technical Architecture Guides & Blog Preview */}
+            <BlogPreviewSection
+              onOpenBlogList={() => handleNavigateBlog()}
+              onSelectBlog={(slug) => handleNavigateBlog(slug)}
+            />
+
+            {/* Frequently Asked Questions */}
+            <FAQ />
+
+            {/* Contact & Lead Generation Section */}
+            <Contact
+              prefilledService={prefilledService}
+              onShowToast={(t) => setToast(t)}
+            />
+          </>
+        )}
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onNavigateBlog={() => handleNavigateBlog()} />
 
       {/* Floating Persistent Quick Connect & WhatsApp Beacon */}
       <FloatingQuickConnect onOpenResume={() => setIsResumeOpen(true)} />

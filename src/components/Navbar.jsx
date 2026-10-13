@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight, FileText, Send, Sparkles } from 'lucide-react';
+import { Menu, X, ArrowUpRight, FileText, Send, Sparkles, BookOpen } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 const navItems = [
@@ -11,12 +11,16 @@ const navItems = [
   { name: 'Projects', href: '#projects' },
   { name: 'Process', href: '#process' },
   { name: 'Reviews', href: '#reviews' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'FAQ', href: '#faq' },
+  { name: 'Blog', href: '#blog', isBlog: true },
   { name: 'Contact', href: '#contact' },
 ];
 
-export default function Navbar({ onOpenResume }) {
+export default function Navbar({
+  onOpenResume,
+  currentView = 'portfolio',
+  onNavigateHome,
+  onNavigateBlog,
+}) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -25,7 +29,14 @@ export default function Navbar({ onOpenResume }) {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = navItems.map(item => item.href.substring(1));
+      if (currentView !== 'portfolio') {
+        setActiveSection('blog');
+        return;
+      }
+
+      const sections = navItems
+        .filter((item) => !item.isBlog)
+        .map((item) => item.href.substring(1));
       const scrollPos = window.scrollY + 220;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -39,14 +50,35 @@ export default function Navbar({ onOpenResume }) {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [currentView]);
 
-  const handleNavClick = (e, href) => {
+  const handleNavClick = (e, item) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    const target = document.querySelector(href);
+
+    if (item.isBlog) {
+      if (onNavigateBlog) onNavigateBlog();
+      return;
+    }
+
+    if (currentView !== 'portfolio') {
+      if (onNavigateHome) onNavigateHome(item.href);
+      return;
+    }
+
+    const target = document.querySelector(item.href);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    if (currentView !== 'portfolio') {
+      if (onNavigateHome) onNavigateHome('#home');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -64,7 +96,7 @@ export default function Navbar({ onOpenResume }) {
           {/* Brand Logo / Initials - Locked single line with zero awkward wrapping */}
           <a
             href="#home"
-            onClick={(e) => handleNavClick(e, '#home')}
+            onClick={handleLogoClick}
             className="group flex items-center gap-3 shrink-0 focus:outline-none"
             aria-label="Md Rahmatullah Quraishi - Home"
           >
@@ -84,28 +116,31 @@ export default function Navbar({ onOpenResume }) {
 
           {/* Desktop Navigation Links - Centered, Streamlined, Perfectly Balanced */}
           <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 h-10 px-2 rounded-full bg-navy-900/95 border border-slate-800/90 backdrop-blur-md shadow-inner">
-            {[
-              { name: 'About', href: '#about' },
-              { name: 'Skills', href: '#skills' },
-              { name: 'Services', href: '#services' },
-              { name: 'Projects', href: '#projects' },
-              { name: 'Process', href: '#process' },
-              { name: 'Reviews', href: '#reviews' },
-              { name: 'Contact', href: '#contact' },
-            ].map((item) => {
-              const isActive = activeSection === item.href.substring(1);
+            {navItems.map((item) => {
+              const isBlogItem = item.isBlog;
+              const isActive = isBlogItem
+                ? currentView === 'blog' || currentView === 'blog-detail'
+                : currentView === 'portfolio' && activeSection === item.href.substring(1);
+
               return (
                 <a
                   key={item.name}
                   href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className={`h-7.5 px-3 rounded-full text-xs font-semibold flex items-center transition-all duration-200 whitespace-nowrap ${
+                  onClick={(e) => handleNavClick(e, item)}
+                  className={`h-7.5 px-2.5 xl:px-3 rounded-full text-xs font-semibold flex items-center transition-all duration-200 whitespace-nowrap ${
                     isActive
                       ? 'text-white bg-electric-accent shadow-glow-sm font-bold'
                       : 'text-slate-300 hover:text-white hover:bg-slate-800/70'
                   }`}
                 >
-                  {item.name}
+                  {isBlogItem ? (
+                    <span className="flex items-center gap-1">
+                      <span>{item.name}</span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+                    </span>
+                  ) : (
+                    item.name
+                  )}
                 </a>
               );
             })}
@@ -123,7 +158,7 @@ export default function Navbar({ onOpenResume }) {
 
             <a
               href="#contact"
-              onClick={(e) => handleNavClick(e, '#contact')}
+              onClick={(e) => handleNavClick(e, { name: 'Contact', href: '#contact' })}
               className="shine-button h-10 inline-flex items-center gap-2 text-xs font-bold px-4 rounded-xl text-white bg-electric-accent hover:bg-blue-600 shadow-glow-electric hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 whitespace-nowrap"
             >
               <span className="hidden xl:inline">Let's Discuss Project</span>
@@ -164,20 +199,32 @@ export default function Navbar({ onOpenResume }) {
             className="sm:hidden bg-navy-950/98 border-b border-slate-800 backdrop-blur-xl px-4 pt-3 pb-6 space-y-3 shadow-2xl"
           >
             <div className="grid grid-cols-2 gap-1.5 pt-2">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className={`text-xs font-semibold px-3 py-2 rounded-lg transition-colors ${
-                    activeSection === item.href.substring(1)
-                      ? 'bg-electric-accent text-white font-bold shadow-glow-sm'
-                      : 'text-slate-300 hover:bg-slate-900 hover:text-white'
-                  }`}
-                >
-                  {item.name}
-                </a>
-              ))}
+              {navItems.map((item) => {
+                const isBlogItem = item.isBlog;
+                const isActive = isBlogItem
+                  ? currentView === 'blog' || currentView === 'blog-detail'
+                  : currentView === 'portfolio' && activeSection === item.href.substring(1);
+
+                return (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item)}
+                    className={`text-xs font-semibold px-3 py-2 rounded-lg transition-colors flex items-center justify-between ${
+                      isActive
+                        ? 'bg-electric-accent text-white font-bold shadow-glow-sm'
+                        : 'text-slate-300 hover:bg-slate-900 hover:text-white'
+                    }`}
+                  >
+                    <span>{item.name}</span>
+                    {isBlogItem && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono">
+                        20 Guides
+                      </span>
+                    )}
+                  </a>
+                );
+              })}
             </div>
 
             <div className="pt-3 border-t border-slate-800/80 space-y-2">
@@ -193,7 +240,7 @@ export default function Navbar({ onOpenResume }) {
               </button>
               <a
                 href="#contact"
-                onClick={(e) => handleNavClick(e, '#contact')}
+                onClick={(e) => handleNavClick(e, { name: 'Contact', href: '#contact' })}
                 className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-electric-accent hover:bg-blue-600 text-white text-xs font-bold shadow-glow-electric"
               >
                 <span>Let's Discuss Your Project</span>
@@ -206,4 +253,3 @@ export default function Navbar({ onOpenResume }) {
     </header>
   );
 }
-

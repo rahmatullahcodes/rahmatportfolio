@@ -1,45 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Primary Homepage & Portfolio Sections -->
   <url>
-    <loc>https://rahmatullah.dev/</loc>
-    <lastmod>2026-10-11</lastmod>
+    <loc>https://rahmatportfolio.vercel.app/</loc>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://rahmatullah.dev/#about</loc>
+    <loc>https://rahmatportfolio.vercel.app/#about</loc>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rahmatullah.dev/#skills</loc>
+    <loc>https://rahmatportfolio.vercel.app/#skills</loc>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rahmatullah.dev/#services</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://rahmatullah.dev/#process</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://rahmatullah.dev/#projects</loc>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://rahmatullah.dev/#reviews</loc>
+    <loc>https://rahmatportfolio.vercel.app/#services</loc>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://rahmatullah.dev/#faq</loc>
-    <priority>0.8</priority>
+    <loc>https://rahmatportfolio.vercel.app/#projects</loc>
+    <lastmod>2026-10-13</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rahmatullah.dev/#experience</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://rahmatullah.dev/#contact</loc>
+    <loc>https://rahmatportfolio.vercel.app/#contact</loc>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.95</priority>
+  </url>
+
+  <!-- Technical Engineering Blog Directory Hub -->
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- 20 In-Depth Technical Engineering Guides (1000+ Words Each) -->
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/laravel-11-performance-optimization-guide</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/mastering-laravel-eloquent-relationships</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/securing-laravel-php-applications-owasp-guide</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/building-resilient-queue-workers-in-laravel</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/react-19-nextjs-app-router-deep-dive</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/optimizing-frontend-performance-in-react</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/react-state-management-zustand-vs-context-vs-redux</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/building-scalable-rest-apis-nodejs-express</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/real-time-chat-collaboration-websockets-nodejs</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/api-rate-limiting-ddos-protection-nodejs-laravel</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/mysql-database-indexing-strategies-high-traffic</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/mongodb-schema-design-best-practices</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/full-stack-authentication-jwt-vs-cookies</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/dockerizing-full-stack-web-applications</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/automating-full-stack-ci-cd-github-actions</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/stripe-razorpay-payment-gateway-integration</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/microservices-vs-monoliths-practical-guide</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/integrating-ai-copilots-openai-gemini-web-apps</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/complete-technical-seo-checklist-web-developers</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rahmatportfolio.vercel.app/blog/freelance-full-stack-engineering-client-playbook</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 </urlset>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { ArrowUp, Heart, Github, Linkedin, Mail, ExternalLink, Youtube, MessageSquare } from 'lucide-react';
+import { ArrowUp, Heart, Github, Linkedin, Mail, ExternalLink, Youtube, MessageSquare, BookOpen } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
-export default function Footer() {
+export default function Footer({ onNavigateBlog }) {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -97,7 +97,16 @@ export default function Footer() {
                 <li><a href="#about" className="hover:text-white transition-colors">About Me</a></li>
                 <li><a href="#skills" className="hover:text-white transition-colors">Tech Stack</a></li>
                 <li><a href="#services" className="hover:text-white transition-colors">Services</a></li>
-                <li><a href="#process" className="hover:text-white transition-colors">How I Work</a></li>
+                <li><a href="#process" className="hover:text-white transition-colors">Methodology</a></li>
+                <li>
+                  <button
+                    onClick={() => onNavigateBlog && onNavigateBlog()}
+                    className="text-electric-300 hover:text-white font-semibold transition-colors flex items-center gap-1.5"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>Blog (20 Guides)</span>
+                  </button>
+                </li>
               </ul>
             </div>
             <div>
@@ -108,7 +117,7 @@ export default function Footer() {
                 <li><a href="#projects" className="hover:text-white transition-colors">Featured Projects</a></li>
                 <li><a href="#reviews" className="hover:text-white transition-colors">Client Reviews</a></li>
                 <li><a href="#experience" className="hover:text-white transition-colors">Work Experience</a></li>
-                <li><a href="#faq" className="hover:text-white transition-colors">FAQs</a></li>
+                <li><a href="#faq" className="hover:text-white transition-colors">Engineering FAQs</a></li>
                 <li><a href="#contact" className="hover:text-white transition-colors">Inquiry Form</a></li>
               </ul>
             </div>
@@ -185,5 +194,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-
