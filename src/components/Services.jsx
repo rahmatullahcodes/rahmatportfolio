@@ -90,23 +90,24 @@ export default function Services({ onSelectService }) {
                       : 'border-slate-800 hover:border-electric-accent hover:shadow-card-hover'
                   }`}
                 >
-                  {index === 0 && (
-                    <div className="absolute -top-3 left-6 z-20 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-electric-accent text-white text-[10px] font-extrabold uppercase tracking-wider shadow-glow-sm">
-                      <Sparkles className="w-3 h-3 text-amber-300 animate-spin-slow" />
-                      <span>⭐ Most Requested</span>
-                    </div>
-                  )}
-
                   <div>
-                    {/* Top Header: Icon on Left & Clean Number Badge on Right */}
-                    <div className="flex items-center justify-between mb-5">
+                    {/* Top Header: Icon on Left & Badges on Right (Inside Card to Prevent Any Clipping) */}
+                    <div className="flex items-center justify-between gap-2 mb-5">
                       <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-electric-300 group-hover:bg-electric-accent group-hover:text-white group-hover:scale-110 group-hover:shadow-glow-electric transition-all duration-300 shadow-sm shrink-0">
                         <Icon className="w-6 h-6" />
                       </div>
 
-                      <span className="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-electric-300 border border-slate-700 select-none">
-                        {numberLabel}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        {index === 0 && (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-electric-accent text-white text-[10px] font-extrabold uppercase tracking-wider shadow-glow-sm">
+                            <Sparkles className="w-3 h-3 text-amber-300 animate-spin-slow shrink-0" />
+                            <span>⭐ Most Requested</span>
+                          </span>
+                        )}
+                        <span className="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-electric-300 border border-slate-700 select-none">
+                          {numberLabel}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Service Title with Consistent Min Height */}

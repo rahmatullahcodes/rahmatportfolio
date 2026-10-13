@@ -54,46 +54,55 @@ export default function Navbar({ onOpenResume }) {
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? 'bg-navy-950/90 backdrop-blur-md border-b border-slate-800/80 shadow-xl shadow-black/30 py-3'
-          : 'bg-transparent py-5'
+          ? 'bg-navy-950/95 backdrop-blur-md border-b border-slate-800/90 shadow-2xl shadow-black/40 py-3'
+          : 'bg-transparent py-4 sm:py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Brand Logo / Initials */}
+        <div className="flex items-center justify-between gap-3 sm:gap-4 h-10">
+          
+          {/* Brand Logo / Initials - Locked single line with zero awkward wrapping */}
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, '#home')}
-            className="group flex items-center gap-3 focus:outline-none"
+            className="group flex items-center gap-3 shrink-0 focus:outline-none"
             aria-label="Md Rahmatullah Quraishi - Home"
           >
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-electric-accent text-white font-black text-base shadow-glow-electric group-hover:scale-105 transition-all duration-300">
+            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-electric-accent text-white font-black text-sm shadow-glow-electric group-hover:scale-105 transition-all duration-300 shrink-0">
               <span>{personalInfo.initials}</span>
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-navy-950 shadow"></span>
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-bold text-tech-offwhite tracking-tight group-hover:text-electric-300 transition-colors">
+            <div className="flex flex-col shrink-0">
+              <span className="text-sm sm:text-base font-extrabold text-tech-offwhite tracking-tight group-hover:text-electric-300 transition-colors whitespace-nowrap leading-none">
                 Md Rahmatullah
               </span>
-              <span className="text-[11px] font-medium text-tech-slate">
+              <span className="text-[11px] font-medium text-tech-slate whitespace-nowrap leading-none mt-1">
                 Full Stack Developer
               </span>
             </div>
           </a>
 
-          {/* Desktop Navigation Links with Smooth Active Indicator */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2 px-3 py-1.5 rounded-full bg-navy-900/90 border border-slate-800 backdrop-blur-md shadow-inner">
-            {navItems.map((item) => {
+          {/* Desktop Navigation Links - Centered, Streamlined, Perfectly Balanced */}
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 h-10 px-2 rounded-full bg-navy-900/95 border border-slate-800/90 backdrop-blur-md shadow-inner">
+            {[
+              { name: 'About', href: '#about' },
+              { name: 'Skills', href: '#skills' },
+              { name: 'Services', href: '#services' },
+              { name: 'Projects', href: '#projects' },
+              { name: 'Process', href: '#process' },
+              { name: 'Reviews', href: '#reviews' },
+              { name: 'Contact', href: '#contact' },
+            ].map((item) => {
               const isActive = activeSection === item.href.substring(1);
               return (
                 <a
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`text-xs font-semibold px-3 py-1.5 rounded-full transition-all duration-200 ${
+                  className={`h-7.5 px-3 rounded-full text-xs font-semibold flex items-center transition-all duration-200 whitespace-nowrap ${
                     isActive
-                      ? 'text-white bg-electric-accent shadow-glow-sm border border-electric-accent font-bold'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                      ? 'text-white bg-electric-accent shadow-glow-sm font-bold'
+                      : 'text-slate-300 hover:text-white hover:bg-slate-800/70'
                   }`}
                 >
                   {item.name}
@@ -102,11 +111,11 @@ export default function Navbar({ onOpenResume }) {
             })}
           </nav>
 
-          {/* Action CTAs */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Action CTAs - Equal h-10 height, vertically aligned */}
+          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
             <button
               onClick={onOpenResume}
-              className="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/60 hover:border-electric-accent/40 hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm"
+              className="h-10 inline-flex items-center gap-1.5 text-xs font-bold px-3.5 rounded-xl text-slate-300 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-electric-accent/60 hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm"
             >
               <FileText className="w-3.5 h-3.5 text-electric-300" />
               <span>Resume</span>
@@ -115,9 +124,10 @@ export default function Navbar({ onOpenResume }) {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="shine-button relative group inline-flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-xl text-white bg-electric-accent hover:bg-blue-600 shadow-glow-electric hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
+              className="shine-button h-10 inline-flex items-center gap-2 text-xs font-bold px-4 rounded-xl text-white bg-electric-accent hover:bg-blue-600 shadow-glow-electric hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 whitespace-nowrap"
             >
-              <span>Let's Discuss Your Project</span>
+              <span className="hidden xl:inline">Let's Discuss Project</span>
+              <span className="xl:hidden">Let's Talk</span>
               <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </div>
@@ -126,14 +136,15 @@ export default function Navbar({ onOpenResume }) {
           <div className="flex sm:hidden items-center gap-2">
             <button
               onClick={onOpenResume}
-              className="p-2 rounded-lg bg-slate-900 text-slate-300 border border-slate-800 text-xs hover:text-white"
+              className="h-9 px-2.5 rounded-lg bg-slate-900 text-slate-300 border border-slate-800 text-xs hover:text-white flex items-center gap-1"
               aria-label="View Resume"
             >
-              <FileText className="w-4 h-4 text-sky-400" />
+              <FileText className="w-3.5 h-3.5 text-electric-300" />
+              <span className="font-semibold text-[11px]">Resume</span>
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg bg-slate-900/90 text-slate-300 hover:text-white border border-slate-800 focus:outline-none"
+              className="w-9 h-9 rounded-lg bg-slate-900/90 text-slate-300 hover:text-white border border-slate-800 flex items-center justify-center focus:outline-none"
               aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
