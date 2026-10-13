@@ -238,14 +238,14 @@ export default function Contact({ prefilledService, onShowToast }) {
           transition={{ duration: 0.4 }}
           className="max-w-3xl mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-sky-400 text-xs font-bold uppercase tracking-wider mb-3 shadow-inner">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-electric-accent/15 border border-electric-accent/30 text-electric-300 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-electric-accent animate-pulse"></span>
             Let's Collaborate
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-tech-offwhite tracking-tight leading-tight">
             Have a project in mind? Let's discuss it.
           </h2>
-          <p className="mt-4 text-base text-slate-400 leading-relaxed">
+          <p className="mt-4 text-base text-tech-slate leading-relaxed">
             Whether you need a full-stack web application, custom backend API, or end-to-end website, I am available to help you build and launch it.
           </p>
         </motion.div>
@@ -702,7 +702,7 @@ export default function Contact({ prefilledService, onShowToast }) {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="shine-button w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-sm font-bold shadow-glow-sm hover:shadow-glow-md disabled:opacity-60 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
+                    className="shine-button w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-electric-accent hover:bg-blue-600 text-white text-sm font-bold shadow-glow-electric hover:shadow-glow-electric-lg disabled:opacity-60 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
                   >
                     {submitting ? (
                       <>

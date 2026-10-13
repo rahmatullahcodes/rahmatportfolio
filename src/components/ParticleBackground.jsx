@@ -32,7 +32,7 @@ export default function ParticleBackground() {
         vx: (Math.random() - 0.5) * 0.45,
         vy: (Math.random() - 0.5) * 0.45,
         alpha: Math.random() * 0.5 + 0.2,
-        color: Math.random() > 0.4 ? '#38BDF8' : '#0284C7'
+        color: Math.random() > 0.4 ? '#3B82F6' : '#2563EB'
       });
     }
 
@@ -89,7 +89,7 @@ export default function ParticleBackground() {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = '#38BDF8';
+            ctx.strokeStyle = '#2563EB';
             ctx.globalAlpha = (1 - dist / 110) * 0.15;
             ctx.lineWidth = 0.7;
             ctx.stroke();

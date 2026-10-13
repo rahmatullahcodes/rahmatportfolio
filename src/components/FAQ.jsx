@@ -37,9 +37,10 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 bg-surface-50 text-slate-800 border-t border-slate-200 relative overflow-hidden">
-      {/* Background Soft Glow */}
-      <div className="absolute top-1/4 right-0 w-80 h-80 bg-blue-100/30 rounded-full blur-[110px] pointer-events-none" />
+    <section id="faq" className="py-24 bg-navy-950 text-tech-offwhite border-t border-slate-800/80 relative overflow-hidden">
+      {/* Background Soft Electric Glow */}
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-electric-accent/10 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-25 pointer-events-none" />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -51,14 +52,14 @@ export default function FAQ() {
           transition={{ duration: 0.4 }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
-            <HelpCircle className="w-3.5 h-3.5 text-sky-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-electric-accent/15 border border-electric-accent/30 text-electric-300 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
+            <HelpCircle className="w-3.5 h-3.5 text-electric-accent" />
             Got Questions?
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-tech-offwhite tracking-tight leading-tight">
             Frequently Asked Questions
           </h2>
-          <p className="mt-3 text-base text-slate-600">
+          <p className="mt-3 text-base text-tech-slate">
             Clear answers about my engineering workflow, contracts, timelines, and collaboration terms.
           </p>
         </motion.div>
@@ -75,10 +76,10 @@ export default function FAQ() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.05 }}
-                className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+                className={`rounded-2xl border transition-all duration-200 overflow-hidden shadow-card-dark ${
                   isOpen
-                    ? 'bg-white border-sky-400 shadow-md ring-2 ring-sky-500/10'
-                    : 'bg-white/80 hover:bg-white border-slate-200/90 shadow-sm'
+                    ? 'bg-navy-900 border-electric-accent shadow-glow-sm ring-1 ring-electric-accent/30'
+                    : 'bg-navy-900/80 hover:bg-navy-900 border-slate-800'
                 }`}
               >
                 <button
@@ -86,15 +87,15 @@ export default function FAQ() {
                   className="w-full flex items-center justify-between p-5 sm:p-6 text-left transition-colors focus:outline-none"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-sm sm:text-base font-bold text-slate-900 pr-4 flex items-center gap-3">
-                    <span className="w-6 h-6 rounded-lg bg-sky-50 text-sky-600 font-mono text-xs font-bold flex items-center justify-center shrink-0 border border-sky-100">
+                  <span className="text-sm sm:text-base font-bold text-tech-offwhite pr-4 flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-lg bg-slate-800 text-electric-300 font-mono text-xs font-bold flex items-center justify-center shrink-0 border border-slate-700">
                       0{idx + 1}
                     </span>
                     <span>{item.q}</span>
                   </span>
 
                   <div className={`p-2 rounded-xl transition-all duration-300 shrink-0 ${
-                    isOpen ? 'bg-sky-500 text-white rotate-180' : 'bg-slate-100 text-slate-500'
+                    isOpen ? 'bg-electric-accent text-white rotate-180 shadow-glow-sm' : 'bg-slate-800 text-slate-400'
                   }`}>
                     <ChevronDown className="w-4 h-4" />
                   </div>
@@ -109,7 +110,7 @@ export default function FAQ() {
                       transition={{ duration: 0.25, ease: 'easeInOut' }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-6 sm:px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                      <div className="px-5 pb-6 sm:px-6 text-xs sm:text-sm text-tech-slate leading-relaxed border-t border-slate-800 pt-4">
                         {item.a}
                       </div>
                     </motion.div>
@@ -125,15 +126,15 @@ export default function FAQ() {
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-slate-900 to-navy-950 text-white flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-800 shadow-xl"
+          className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-navy-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-800 shadow-xl"
         >
           <div className="flex items-center gap-3 text-center sm:text-left">
             <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400 shrink-0">
               <MessageSquare className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-white">Have a unique requirement or question?</h4>
-              <p className="text-xs text-slate-400">Feel free to message me directly on WhatsApp for an immediate response.</p>
+              <h4 className="text-sm font-bold text-tech-offwhite">Have a unique requirement or question?</h4>
+              <p className="text-xs text-tech-slate">Feel free to message me directly on WhatsApp for an immediate response.</p>
             </div>
           </div>
 

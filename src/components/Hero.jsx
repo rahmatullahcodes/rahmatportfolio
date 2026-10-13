@@ -22,6 +22,7 @@ import {
   MessageSquare
 } from 'lucide-react';
 import TiltCard from './TiltCard';
+import TechWorkspaceShowcase from './TechWorkspaceShowcase';
 import { personalInfo } from '../data/portfolioData';
 
 const rotatingTitles = [
@@ -99,12 +100,12 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-900/90 border border-slate-700/80 hover:border-sky-400/80 shadow-inner backdrop-blur-md transition-colors group cursor-default"
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-900/90 border border-slate-700/80 hover:border-electric-accent/80 shadow-inner backdrop-blur-md transition-colors group cursor-default"
             >
-              {/* Emerald Radar Beacon */}
+              {/* Electric/Emerald Radar Beacon */}
               <span className="relative flex h-2.5 w-2.5 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-electric-accent"></span>
               </span>
 
               {/* Dynamic Sliding Status Message */}
@@ -116,7 +117,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -14, opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="text-xs font-semibold text-slate-200 whitespace-nowrap"
+                    className="text-xs font-semibold text-tech-offwhite whitespace-nowrap"
                   >
                     {statusMessages[statusIdx]}
                   </motion.span>
@@ -124,7 +125,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
               </div>
 
               <span className="text-slate-600 hidden xs:inline">•</span>
-              <span className="text-sky-400 text-xs font-bold shrink-0 hidden xs:inline">
+              <span className="text-electric-300 text-xs font-bold shrink-0 hidden xs:inline">
                 {personalInfo.experienceYears} Yrs Exp
               </span>
             </motion.div>
@@ -136,7 +137,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="space-y-3"
             >
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
+              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight text-tech-offwhite leading-[1.12]">
                 Hi, I'm{' '}
                 <span className="text-gradient-electric inline-block">
                   {personalInfo.name}
@@ -151,7 +152,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -22, opacity: 0 }}
                       transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="text-sky-400 font-bold"
+                      className="text-electric-400 font-bold"
                     >
                       {rotatingTitles[titleIdx]}
                     </motion.span>
@@ -169,10 +170,10 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="space-y-3"
             >
-              <p className="text-lg sm:text-xl font-semibold text-slate-100 leading-snug">
+              <p className="text-lg sm:text-xl font-semibold text-tech-offwhite leading-snug">
                 "{personalInfo.tagline}"
               </p>
-              <p className="text-sm sm:text-base text-slate-400 max-w-2xl leading-relaxed">
+              <p className="text-sm sm:text-base text-tech-slate max-w-2xl leading-relaxed">
                 {personalInfo.supportingStatement}
               </p>
             </motion.div>
@@ -189,7 +190,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 href="#projects"
-                className="shine-button inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 text-white text-sm font-bold shadow-glow-sm hover:shadow-glow-md transition-all duration-200 group"
+                className="shine-button inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-electric-accent hover:bg-blue-600 text-white text-sm font-bold shadow-glow-electric hover:shadow-glow-electric-lg transition-all duration-200 group"
               >
                 <span>View My Projects</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
@@ -200,7 +201,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white text-sm font-semibold border border-slate-700/80 hover:border-sky-400 hover:shadow-glow-sm transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white text-sm font-semibold border border-slate-700/80 hover:border-electric-accent hover:shadow-glow-electric transition-all duration-200"
               >
                 <span>Hire Me</span>
               </motion.a>
@@ -212,7 +213,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
                 onClick={onOpenResume}
                 className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 text-slate-300 hover:text-white text-sm font-medium border border-slate-800 hover:border-slate-700 transition-all duration-200"
               >
-                <FileText className="w-4 h-4 text-sky-400" />
+                <FileText className="w-4 h-4 text-electric-300" />
                 <span>Resume</span>
               </motion.button>
             </motion.div>
@@ -234,7 +235,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
-                className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-sky-500/20 text-slate-400 hover:text-sky-300 border border-slate-800 hover:border-sky-500/50 transition-all shadow-sm"
+                className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-electric-accent/20 text-slate-400 hover:text-electric-300 border border-slate-800 hover:border-electric-accent/50 transition-all shadow-sm"
               >
                 <Linkedin className="w-4 h-4" />
               </motion.a>
@@ -245,7 +246,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
-                className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-sky-500/20 text-slate-400 hover:text-sky-300 border border-slate-800 hover:border-sky-500/50 transition-all shadow-sm"
+                className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-electric-accent/20 text-slate-400 hover:text-electric-300 border border-slate-800 hover:border-electric-accent/50 transition-all shadow-sm"
               >
                 <Github className="w-4 h-4" />
               </motion.a>
@@ -278,7 +279,7 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
                 whileTap={{ scale: 0.95 }}
                 onClick={onCopyEmail}
                 aria-label="Copy Email Address"
-                className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-sky-500/20 text-slate-400 hover:text-sky-300 border border-slate-800 hover:border-sky-500/50 transition-all shadow-sm"
+                className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-electric-accent/20 text-slate-400 hover:text-electric-300 border border-slate-800 hover:border-electric-accent/50 transition-all shadow-sm"
                 title="Copy Email"
               >
                 <Mail className="w-4 h-4" />
@@ -287,107 +288,14 @@ export default function Hero({ onOpenResume, onCopyEmail }) {
 
           </div>
 
-          {/* Right Column: 3D Tilt Portrait Card with Real Photo */}
+          {/* Right Column: Interactive Tech Workspace Studio (Code, Dashboard, Mobile, AI, Photo) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-5 relative"
           >
-            {/* Ambient Back Glow & Pulse */}
-            <div className="absolute -inset-3 bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 rounded-3xl blur-2xl opacity-30 hover:opacity-45 transition duration-700 animate-pulse-subtle pointer-events-none"></div>
-
-            {/* Floating Achievement Pill (Top Right) */}
-            <motion.div
-              animate={{ y: [0, -8, 0], rotate: [0, 1.5, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-4 -right-2 sm:-top-6 sm:-right-4 z-30 flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-900/95 border border-sky-400/60 text-white text-[11px] sm:text-xs font-bold shadow-glow-sm backdrop-blur-md"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400 shrink-0 animate-spin-slow" />
-              <span>100% Job Success Rate</span>
-            </motion.div>
-
-            {/* Floating Achievement Pill (Bottom Left) */}
-            <motion.div
-              animate={{ y: [0, 8, 0], rotate: [0, -1.5, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-4 z-30 flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-900/95 border border-slate-700/90 text-white text-[11px] sm:text-xs font-bold shadow-2xl backdrop-blur-md"
-            >
-              <Layers className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-              <span>React • Node • PHP • MySQL</span>
-            </motion.div>
-
-            {/* Main Executive 3D Tilt Portrait Container */}
-            <TiltCard
-              maxTilt={7}
-              glowColor="rgba(56, 189, 248, 0.2)"
-              className="rounded-3xl bg-slate-900/95 border border-slate-800 shadow-2xl p-4 sm:p-5 backdrop-blur-xl"
-            >
-              {/* Window Header */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-slate-800 mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-rose-500/90 shadow-sm"></div>
-                  <div className="w-3 h-3 rounded-full bg-amber-500/90 shadow-sm"></div>
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/90 shadow-sm"></div>
-                  <span className="ml-2 text-xs font-mono text-slate-400">rahmatullah-quraishi.profile</span>
-                </div>
-
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="text-[11px] font-mono text-sky-400 font-bold">200 OK</span>
-                </div>
-              </div>
-
-              {/* Professional Photograph Card */}
-              <div className="relative group rounded-2xl overflow-hidden aspect-[4/5] bg-slate-950 border-2 border-sky-500/30 group-hover:border-sky-400 transition-all duration-500 shadow-inner">
-                {/* Real Photograph with Proper Top-Center Crop */}
-                <img
-                  src={personalInfo.avatarUrl}
-                  alt={personalInfo.name}
-                  className="w-full h-full object-cover object-top group-hover:scale-106 transition-transform duration-700"
-                  loading="eager"
-                />
-
-                {/* Subtle vignette overlay at top and bottom for visual depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent opacity-80 pointer-events-none" />
-                <div className="absolute inset-0 bg-gradient-to-b from-navy-950/40 via-transparent to-transparent pointer-events-none" />
-
-                {/* Top Badge: Available for Hire */}
-                <div className="absolute top-3.5 left-3.5 z-20 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white text-xs font-bold shadow-lg">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Open for Projects</span>
-                </div>
-
-                {/* Bottom Overlay Card with Name, Title & Experience */}
-                <div className="absolute bottom-3.5 left-3.5 right-3.5 z-20 p-3.5 rounded-xl bg-slate-900/92 backdrop-blur-md border border-slate-800 shadow-2xl">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-sm sm:text-base font-extrabold text-white tracking-tight">
-                        {personalInfo.name}
-                      </h3>
-                      <p className="text-xs font-bold text-sky-400">
-                        {personalInfo.title}
-                      </p>
-                    </div>
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-300 border border-sky-400/30 shadow-sm">
-                      2+ Yrs
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Quick Metric Pills */}
-              <div className="mt-4 pt-3.5 border-t border-slate-800/80 grid grid-cols-2 gap-3 text-center">
-                <div className="p-2.5 rounded-xl bg-slate-800/40 border border-slate-800 hover:border-sky-500/50 hover:bg-slate-800/70 transition-all">
-                  <div className="text-base font-extrabold text-white">2+ Years</div>
-                  <div className="text-[11px] text-slate-400 font-medium">Production Experience</div>
-                </div>
-                <div className="p-2.5 rounded-xl bg-slate-800/40 border border-slate-800 hover:border-sky-500/50 hover:bg-slate-800/70 transition-all">
-                  <div className="text-base font-extrabold text-sky-400">Dual-Stack</div>
-                  <div className="text-[11px] text-slate-400 font-medium">React.js & PHP/Laravel</div>
-                </div>
-              </div>
-            </TiltCard>
+            <TechWorkspaceShowcase />
           </motion.div>
 
         </div>

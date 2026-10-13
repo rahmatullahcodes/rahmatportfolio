@@ -9,25 +9,34 @@ export default {
     extend: {
       colors: {
         navy: {
-          950: '#060B14',
-          900: '#0B132B',
+          950: '#0B1220', // Main Dark Navy Background
+          900: '#0E1726',
           850: '#0F172A',
-          800: '#16203D',
+          800: '#131F37',
+          750: '#182846',
           700: '#1E293B',
           600: '#334155',
         },
         electric: {
-          300: '#7DD3FC',
-          400: '#38BDF8',
-          500: '#0284C7',
-          600: '#0369A1',
-          accent: '#2563EB',
+          accent: '#2563EB', // Primary Electric Blue
+          500: '#3B82F6',
+          400: '#60A5FA',
+          300: '#93C5FD',
+          glow: 'rgba(37, 99, 235, 0.5)',
+        },
+        tech: {
+          offwhite: '#F8FAFC',
+          slate: '#94A3B8',
+          muted: '#64748B',
+          border: '#1E293B',
+          card: '#0F172A',
+          cardHover: '#131F37',
         },
         surface: {
-          50: '#F8FAFC',
-          100: '#F1F5F9',
-          200: '#E2E8F0',
-          300: '#CBD5E1',
+          50: '#0F172A',
+          100: '#131F37',
+          200: '#1E293B',
+          300: '#334155',
         }
       },
       fontFamily: {
@@ -35,14 +44,16 @@ export default {
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       boxShadow: {
-        'glow-sm': '0 0 15px -3px rgba(56, 189, 248, 0.3)',
-        'glow-md': '0 0 25px -5px rgba(14, 165, 233, 0.45)',
-        'glow-lg': '0 0 40px -10px rgba(56, 189, 248, 0.5)',
+        'glow-electric': '0 0 25px -4px rgba(37, 99, 235, 0.45)',
+        'glow-electric-lg': '0 0 45px -8px rgba(37, 99, 235, 0.6)',
+        'glow-sm': '0 0 15px -3px rgba(37, 99, 235, 0.35)',
+        'glow-md': '0 0 25px -5px rgba(37, 99, 235, 0.45)',
+        'glow-lg': '0 0 40px -10px rgba(37, 99, 235, 0.55)',
         'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.4)',
         'glow-cyan': '0 0 25px -5px rgba(6, 182, 212, 0.4)',
-        'card-light': '0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.02)',
-        'card-hover': '0 20px 35px -10px rgba(15, 23, 42, 0.09), 0 1px 3px 0 rgba(0, 0, 0, 0.05)',
-        'card-glow': '0 10px 30px -10px rgba(56, 189, 248, 0.2), 0 0 1px 1px rgba(56, 189, 248, 0.25)',
+        'card-dark': '0 10px 30px -10px rgba(2, 6, 23, 0.6), 0 0 1px 1px rgba(30, 41, 59, 0.8)',
+        'card-hover': '0 20px 40px -12px rgba(37, 99, 235, 0.25), 0 0 1px 1px rgba(37, 99, 235, 0.4)',
+        'card-glow': '0 10px 30px -10px rgba(37, 99, 235, 0.25), 0 0 1px 1px rgba(37, 99, 235, 0.3)',
       },
       animation: {
         'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

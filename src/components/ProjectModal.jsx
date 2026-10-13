@@ -28,7 +28,7 @@ export default function ProjectModal({ project, onClose }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"
+          className="fixed inset-0 bg-navy-950/85 backdrop-blur-md"
         />
 
         <div className="min-h-full flex items-center justify-center p-4 md:p-6">
@@ -37,15 +37,15 @@ export default function ProjectModal({ project, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-8"
+            className="relative w-full max-w-3xl bg-navy-900 text-tech-offwhite rounded-2xl shadow-2xl border border-slate-800 overflow-hidden my-8"
           >
             {/* Header bar */}
-            <div className="flex items-center justify-between px-6 py-4 bg-slate-900 text-white border-b border-slate-800">
+            <div className="flex items-center justify-between px-6 py-4 bg-navy-950 text-white border-b border-slate-800">
               <div className="flex items-center gap-3">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">
+                <span className="text-xs font-semibold px-2.5 py-1 rounded bg-electric-accent/20 text-electric-300 border border-electric-accent/40">
                   {project.category}
                 </span>
-                <span className="text-xs text-slate-400">Verified Project</span>
+                <span className="text-xs text-tech-slate">Verified Project</span>
               </div>
               <button
                 onClick={onClose}
@@ -60,13 +60,13 @@ export default function ProjectModal({ project, onClose }) {
             <div className="p-6 md:p-8 max-h-[75vh] overflow-y-auto space-y-6">
               {/* Title & Tagline */}
               <div>
-                <h3 className="text-2xl font-bold text-slate-900">
+                <h3 className="text-2xl font-bold text-tech-offwhite">
                   {project.title}
                 </h3>
-                <p className="text-sm font-medium text-sky-600 mt-0.5">
+                <p className="text-sm font-medium text-electric-400 mt-0.5">
                   {project.subtitle}
                 </p>
-                <p className="text-sm text-slate-600 mt-2">
+                <p className="text-sm text-tech-slate mt-2 leading-relaxed">
                   {project.tagline}
                 </p>
               </div>
@@ -74,14 +74,14 @@ export default function ProjectModal({ project, onClose }) {
               {/* Technologies */}
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5 flex items-center gap-2">
-                  <Cpu className="w-3.5 h-3.5 text-sky-600" />
+                  <Cpu className="w-3.5 h-3.5 text-electric-accent" />
                   Technologies Used
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, idx) => (
                     <span
                       key={idx}
-                      className="text-xs font-semibold px-3 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200/80"
+                      className="text-xs font-semibold px-3 py-1 rounded-lg bg-slate-800/80 text-slate-200 border border-slate-700/80"
                     >
                       {tech}
                     </span>
@@ -90,11 +90,11 @@ export default function ProjectModal({ project, onClose }) {
               </div>
 
               {/* Overview */}
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+              <div className="p-4 rounded-xl bg-navy-950/80 border border-slate-800">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
                   Project Overview
                 </h4>
-                <p className="text-sm text-slate-700 leading-relaxed">
+                <p className="text-sm text-slate-300 leading-relaxed">
                   {project.overview}
                 </p>
               </div>
@@ -102,21 +102,21 @@ export default function ProjectModal({ project, onClose }) {
               {/* Problem & Solution */}
               {project.problemSolution && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-xl bg-amber-50/60 border border-amber-100">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-amber-800 mb-2 flex items-center gap-1.5">
-                      <ShieldAlert className="w-4 h-4 text-amber-600" />
+                  <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/25">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300 mb-2 flex items-center gap-1.5">
+                      <ShieldAlert className="w-4 h-4 text-amber-400" />
                       The Challenge
                     </h4>
-                    <p className="text-xs text-slate-700 leading-relaxed">
+                    <p className="text-xs text-slate-300 leading-relaxed">
                       {project.problemSolution.problem}
                     </p>
                   </div>
-                  <div className="p-4 rounded-xl bg-emerald-50/60 border border-emerald-100">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-800 mb-2 flex items-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-300 mb-2 flex items-center gap-1.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                       The Solution
                     </h4>
-                    <p className="text-xs text-slate-700 leading-relaxed">
+                    <p className="text-xs text-slate-300 leading-relaxed">
                       {project.problemSolution.solution}
                     </p>
                   </div>
@@ -126,10 +126,10 @@ export default function ProjectModal({ project, onClose }) {
               {/* Role & Contribution */}
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-2">
-                  <UserCheck className="w-3.5 h-3.5 text-sky-600" />
+                  <UserCheck className="w-3.5 h-3.5 text-electric-accent" />
                   My Role & Contribution
                 </h4>
-                <p className="text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100">
+                <p className="text-sm text-slate-300 leading-relaxed bg-navy-950/80 p-4 rounded-xl border border-slate-800">
                   {project.roleContribution}
                 </p>
               </div>
@@ -137,13 +137,13 @@ export default function ProjectModal({ project, onClose }) {
               {/* Key Highlights */}
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5 flex items-center gap-2">
-                  <Layers className="w-3.5 h-3.5 text-sky-600" />
+                  <Layers className="w-3.5 h-3.5 text-electric-accent" />
                   Key Implementations
                 </h4>
                 <ul className="space-y-2">
                   {project.highlights.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-700">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-300">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -152,18 +152,18 @@ export default function ProjectModal({ project, onClose }) {
             </div>
 
             {/* Footer with action */}
-            <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-xs text-slate-500">
+            <div className="px-6 py-4 bg-navy-950 border-t border-slate-800 flex items-center justify-between">
+              <span className="text-xs text-tech-slate">
                 Official project from resume portfolio
               </span>
               <a
                 href={project.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow transition-all hover:gap-3"
+                className="shine-button inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-electric-accent hover:bg-blue-600 text-white text-xs font-bold shadow-glow-electric transition-all hover:gap-3"
               >
                 <span>Visit Live Website</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <ExternalLink className="w-3.5 h-3.5 text-sky-200" />
               </a>
             </div>
           </motion.div>
@@ -172,5 +172,3 @@ export default function ProjectModal({ project, onClose }) {
     </AnimatePresence>
   );
 }
-
-

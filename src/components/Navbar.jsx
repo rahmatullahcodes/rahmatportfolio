@@ -67,22 +67,22 @@ export default function Navbar({ onOpenResume }) {
             className="group flex items-center gap-3 focus:outline-none"
             aria-label="Md Rahmatullah Quraishi - Home"
           >
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 via-sky-500 to-blue-600 text-white font-black text-base shadow-glow-sm group-hover:shadow-glow-md group-hover:scale-105 transition-all duration-300">
+            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-electric-accent text-white font-black text-base shadow-glow-electric group-hover:scale-105 transition-all duration-300">
               <span>{personalInfo.initials}</span>
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-navy-950 shadow"></span>
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-bold text-white tracking-tight group-hover:text-sky-300 transition-colors">
+              <span className="text-sm font-bold text-tech-offwhite tracking-tight group-hover:text-electric-300 transition-colors">
                 Md Rahmatullah
               </span>
-              <span className="text-[11px] font-medium text-slate-400">
+              <span className="text-[11px] font-medium text-tech-slate">
                 Full Stack Developer
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation Links with Smooth Active Indicator */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 backdrop-blur-md shadow-inner">
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2 px-3 py-1.5 rounded-full bg-navy-900/90 border border-slate-800 backdrop-blur-md shadow-inner">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.substring(1);
               return (
@@ -92,7 +92,7 @@ export default function Navbar({ onOpenResume }) {
                   onClick={(e) => handleNavClick(e, item.href)}
                   className={`text-xs font-semibold px-3 py-1.5 rounded-full transition-all duration-200 ${
                     isActive
-                      ? 'text-white bg-sky-500/25 text-sky-300 shadow-sm border border-sky-500/30 font-bold'
+                      ? 'text-white bg-electric-accent shadow-glow-sm border border-electric-accent font-bold'
                       : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
                   }`}
                 >
@@ -106,16 +106,16 @@ export default function Navbar({ onOpenResume }) {
           <div className="hidden sm:flex items-center gap-3">
             <button
               onClick={onOpenResume}
-              className="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/60 hover:border-sky-500/40 hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm"
+              className="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/60 hover:border-electric-accent/40 hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm"
             >
-              <FileText className="w-3.5 h-3.5 text-sky-400" />
+              <FileText className="w-3.5 h-3.5 text-electric-300" />
               <span>Resume</span>
             </button>
 
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="shine-button relative group inline-flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-xl text-white bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 shadow-glow-sm hover:shadow-glow-md hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
+              className="shine-button relative group inline-flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-xl text-white bg-electric-accent hover:bg-blue-600 shadow-glow-electric hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
             >
               <span>Let's Discuss Your Project</span>
               <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -160,7 +160,7 @@ export default function Navbar({ onOpenResume }) {
                   onClick={(e) => handleNavClick(e, item.href)}
                   className={`text-xs font-semibold px-3 py-2 rounded-lg transition-colors ${
                     activeSection === item.href.substring(1)
-                      ? 'bg-sky-500/20 text-sky-300 font-bold'
+                      ? 'bg-electric-accent text-white font-bold shadow-glow-sm'
                       : 'text-slate-300 hover:bg-slate-900 hover:text-white'
                   }`}
                 >
@@ -177,13 +177,13 @@ export default function Navbar({ onOpenResume }) {
                 }}
                 className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-200 text-xs font-bold"
               >
-                <FileText className="w-4 h-4 text-sky-400" />
+                <FileText className="w-4 h-4 text-electric-300" />
                 <span>View & Download Resume</span>
               </button>
               <a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, '#contact')}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 text-white text-xs font-bold shadow-glow-sm"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-electric-accent hover:bg-blue-600 text-white text-xs font-bold shadow-glow-electric"
               >
                 <span>Let's Discuss Your Project</span>
                 <Send className="w-3.5 h-3.5" />

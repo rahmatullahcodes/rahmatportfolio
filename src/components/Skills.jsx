@@ -45,9 +45,10 @@ export default function Skills() {
     .filter(Boolean);
 
   return (
-    <section id="skills" className="py-24 bg-white text-slate-800 border-t border-slate-200 relative overflow-hidden">
-      {/* Subtle Background Glow */}
-      <div className="absolute top-1/2 right-0 w-80 h-80 bg-sky-100/40 rounded-full blur-[110px] pointer-events-none" />
+    <section id="skills" className="py-24 bg-navy-950 text-tech-offwhite border-t border-slate-800/80 relative overflow-hidden">
+      {/* Subtle Background Electric Glow */}
+      <div className="absolute top-1/2 right-0 w-96 h-96 bg-electric-accent/10 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-25 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -60,15 +61,15 @@ export default function Skills() {
             transition={{ duration: 0.4 }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-sky-600 animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-electric-accent/15 border border-electric-accent/30 text-electric-300 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-electric-accent animate-pulse"></span>
               Technical Stack & Skills
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-tech-offwhite tracking-tight">
               Tools & frameworks I use to build scalable products.
             </h2>
-            <p className="mt-3 text-base text-slate-600">
-              Honest, production-tested competencies without arbitrary skill bars or fake percentages.
+            <p className="mt-3 text-base text-tech-slate">
+              Specialized expertise across PHP, Laravel, React.js, Node.js, MySQL, MongoDB, and REST API integration.
             </p>
           </motion.div>
 
@@ -79,15 +80,15 @@ export default function Skills() {
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
-                placeholder="Filter tools (e.g. React)..."
+                placeholder="Filter tools (e.g. Laravel, React)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all"
+                className="w-full pl-9 pr-8 py-2 rounded-xl bg-navy-900 border border-slate-800 text-xs font-medium text-tech-offwhite placeholder-slate-500 focus:outline-none focus:border-electric-accent focus:ring-1 focus:ring-electric-accent transition-all"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-0.5"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -95,17 +96,17 @@ export default function Skills() {
             </div>
 
             {/* Quick Category Filter Pills */}
-            <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-slate-100 border border-slate-200/80">
+            <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-navy-900/90 border border-slate-800">
               <button
                 onClick={() => setSelectedCategory('all')}
                 className={`relative px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-                  selectedCategory === 'all' ? 'text-white' : 'text-slate-600 hover:text-slate-900'
+                  selectedCategory === 'all' ? 'text-white' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 {selectedCategory === 'all' && (
                   <motion.div
                     layoutId="skillActivePill"
-                    className="absolute inset-0 bg-slate-900 rounded-lg shadow-sm"
+                    className="absolute inset-0 bg-electric-accent rounded-lg shadow-glow-sm"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -116,13 +117,13 @@ export default function Skills() {
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`relative px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-                    selectedCategory === cat.id ? 'text-white' : 'text-slate-600 hover:text-slate-900'
+                    selectedCategory === cat.id ? 'text-white' : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   {selectedCategory === cat.id && (
                     <motion.div
                       layoutId="skillActivePill"
-                      className="absolute inset-0 bg-slate-900 rounded-lg shadow-sm"
+                      className="absolute inset-0 bg-electric-accent rounded-lg shadow-glow-sm"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -150,36 +151,36 @@ export default function Skills() {
                 >
                   <TiltCard
                     maxTilt={5}
-                    glowColor="rgba(56, 189, 248, 0.14)"
-                    className="group relative h-full p-6 sm:p-7 rounded-2xl bg-surface-50 border border-slate-200 hover:border-sky-400 hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between overflow-hidden"
+                    glowColor="rgba(37, 99, 235, 0.22)"
+                    className="group relative h-full p-6 sm:p-7 rounded-2xl bg-navy-900/90 border border-slate-800 hover:border-electric-accent hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-card-dark"
                   >
                     {/* Subtle Top Ambient Accent */}
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-sky-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-electric-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                     <div>
                       {/* Category Header */}
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-3.5">
-                          <div className="p-3 rounded-xl bg-white border border-slate-200 text-sky-600 group-hover:bg-gradient-to-br group-hover:from-sky-500 group-hover:to-blue-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-sm">
+                          <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700/80 text-electric-300 group-hover:bg-electric-accent group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-sm">
                             <IconComponent className="w-5 h-5" />
                           </div>
                           <div>
-                            <h3 className="text-base font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
+                            <h3 className="text-base font-bold text-tech-offwhite group-hover:text-electric-300 transition-colors">
                               {category.title}
                             </h3>
-                            <span className="text-[11px] font-medium text-slate-500">
+                            <span className="text-[11px] font-medium text-tech-slate">
                               {category.skills.length} core tools
                             </span>
                           </div>
                         </div>
 
-                        <span className="text-[10px] font-bold text-sky-700 bg-sky-100/80 px-2.5 py-1 rounded-full border border-sky-200 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                        <span className="text-[10px] font-bold text-electric-300 bg-electric-accent/15 px-2.5 py-1 rounded-full border border-electric-accent/30 group-hover:bg-electric-accent group-hover:text-white transition-colors">
                           Verified
                         </span>
                       </div>
 
                       {/* Description */}
-                      <p className="text-xs text-slate-600 mb-5 leading-relaxed">
+                      <p className="text-xs text-tech-slate mb-5 leading-relaxed">
                         {category.description}
                       </p>
 
@@ -188,9 +189,9 @@ export default function Skills() {
                         {category.skills.map((skill, idx) => (
                           <div
                             key={idx}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-sky-400 hover:text-sky-700 hover:bg-sky-50/60 hover:shadow-glow-sm hover:scale-[1.06] hover:-translate-y-0.5 active:scale-95 transition-all duration-200 shadow-sm cursor-default"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs font-semibold text-slate-200 hover:border-electric-accent hover:text-white hover:bg-electric-accent/15 hover:shadow-glow-sm hover:scale-[1.06] hover:-translate-y-0.5 active:scale-95 transition-all duration-200 shadow-sm cursor-default"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-electric-accent"></span>
                             <span>{skill.name}</span>
                             <span className="text-[10px] text-slate-400 font-normal ml-0.5">
                               ({skill.badge})
@@ -201,9 +202,9 @@ export default function Skills() {
                     </div>
 
                     {/* Card Footer Indicator */}
-                    <div className="mt-6 pt-4 border-t border-slate-200/80 flex items-center justify-between text-[11px] text-slate-500">
-                      <span className="flex items-center gap-1.5 text-emerald-700 font-semibold">
-                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <div className="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-tech-slate">
+                      <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
                         Production Tested
                       </span>
                       <span className="text-slate-400 font-mono text-[11px]">2+ Yrs Exp</span>
@@ -220,22 +221,22 @@ export default function Skills() {
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-navy-950 to-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-5 border border-slate-800 shadow-xl"
+          className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-navy-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-5 border border-slate-800 shadow-xl"
         >
           <div className="flex items-center gap-4">
-            <div className="p-3 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-400/30 shrink-0">
+            <div className="p-3 rounded-xl bg-electric-accent/20 text-electric-300 border border-electric-accent/30 shrink-0">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm sm:text-base font-bold text-white">Full-Lifecycle Engineering Standards</h4>
-              <p className="text-xs text-slate-400 mt-0.5 max-w-xl">
-                Code versioning on Git/GitHub, structured REST endpoint documentation, secure JWT authentication, and clean responsive CSS architectures.
+              <h4 className="text-sm sm:text-base font-bold text-tech-offwhite">Full-Lifecycle Engineering Standards</h4>
+              <p className="text-xs text-tech-slate mt-0.5 max-w-xl">
+                Code versioning on Git/GitHub, structured REST endpoint contracts, secure JWT authentication, and clean modular CSS architectures.
               </p>
             </div>
           </div>
           <a
             href="#projects"
-            className="shine-button inline-flex items-center justify-center text-xs font-bold px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-all shrink-0"
+            className="shine-button inline-flex items-center justify-center text-xs font-bold px-5 py-3 rounded-xl bg-electric-accent hover:bg-blue-600 text-white shadow-glow-electric hover:scale-[1.02] active:scale-[0.98] transition-all shrink-0"
           >
             Review Production Projects →
           </a>
@@ -245,4 +246,3 @@ export default function Skills() {
     </section>
   );
 }
-

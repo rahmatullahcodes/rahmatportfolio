@@ -39,7 +39,7 @@ export default function ResumeModal({ isOpen, onClose }) {
               <div className="flex items-center gap-3">
                 <button
                   onClick={handlePrint}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-white text-xs font-semibold shadow-sm transition-colors"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-electric-accent hover:bg-blue-600 text-white text-xs font-semibold shadow-glow-sm transition-colors"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   Print / Save PDF

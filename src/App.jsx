@@ -57,7 +57,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950 font-sans selection:bg-sky-500 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-navy-950 font-sans selection:bg-electric-accent selection:text-white relative overflow-x-hidden">
       {/* High-End Interactive Custom Cursor */}
       <CustomCursor />
 
@@ -68,13 +68,13 @@ export default function App() {
       <div
         className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300 opacity-60 hidden md:block"
         style={{
-          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(56, 189, 248, 0.08), transparent 75%)`,
+          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(37, 99, 235, 0.12), transparent 75%)`,
         }}
       />
 
       {/* Top Animated Scroll Progress Indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-blue-500 to-cyan-400 z-50 origin-left shadow-glow-sm"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-electric-accent to-sky-400 z-50 origin-left shadow-glow-electric"
         style={{ scaleX }}
       />
 

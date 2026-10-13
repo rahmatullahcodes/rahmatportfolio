@@ -90,8 +90,8 @@ export default function CustomCursor() {
           width: isPointer ? 64 : 36,
           height: isPointer ? 64 : 36,
           background: isPointer
-            ? 'radial-gradient(circle, rgba(56, 189, 248, 0.28) 0%, rgba(2, 132, 199, 0.12) 50%, transparent 75%)'
-            : 'radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, rgba(59, 130, 246, 0.15) 50%, transparent 75%)'
+            : 'radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, rgba(96, 165, 250, 0.08) 50%, transparent 70%)',
           filter: 'blur(4px)',
         }}
         animate={{
@@ -115,10 +115,10 @@ export default function CustomCursor() {
           translateY: '-50%',
           width: isPointer ? 7 : 5,
           height: isPointer ? 7 : 5,
-          backgroundColor: isPointer ? '#38BDF8' : '#7DD3FC',
+          backgroundColor: isPointer ? '#2563EB' : '#60A5FA',
           boxShadow: isPointer
-            ? '0 0 10px #38BDF8, 0 0 20px rgba(56, 189, 248, 0.6)'
-            : '0 0 8px rgba(56, 189, 248, 0.8), 0 0 14px rgba(2, 132, 199, 0.4)',
+            ? '0 0 10px #2563EB, 0 0 20px rgba(37, 99, 235, 0.7)'
+            : '0 0 8px rgba(37, 99, 235, 0.8), 0 0 14px rgba(96, 165, 250, 0.5)',
         }}
         animate={{
           scale: isClicking ? 1.5 : isPointer ? 1.25 : 1,
@@ -136,7 +136,7 @@ export default function CustomCursor() {
           initial={{ opacity: 0.7, scale: 0.2 }}
           animate={{ opacity: 0, scale: 2 }}
           transition={{ duration: 0.45, ease: 'easeOut' }}
-          className="fixed rounded-full pointer-events-none border border-sky-400/80 bg-sky-400/10"
+          className="fixed rounded-full pointer-events-none border border-electric-accent bg-electric-accent/15"
           style={{
             top: ripple.y,
             left: ripple.x,

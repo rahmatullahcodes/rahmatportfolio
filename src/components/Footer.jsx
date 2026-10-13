@@ -20,14 +20,14 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 text-white font-extrabold text-base shadow-glow-sm">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-electric-accent text-white font-extrabold text-base shadow-glow-electric">
                 {personalInfo.initials}
               </div>
               <div>
-                <span className="text-base font-bold text-white tracking-tight block">
+                <span className="text-base font-bold text-tech-offwhite tracking-tight block">
                   {personalInfo.name}
                 </span>
-                <span className="text-xs text-sky-400 font-medium">
+                <span className="text-xs text-electric-300 font-medium">
                   {personalInfo.title}
                 </span>
               </div>

@@ -11,7 +11,7 @@ const steps = [
     desc: "We analyze your project goals, define target user flows, design normalized database schemas (MySQL/MongoDB), and select the optimal modern stack (React/Node/Laravel).",
     deliverables: ["Product Requirement Mapping", "Database Schema Diagram", "REST API Contract", "Milestone Roadmap"],
     icon: Compass,
-    accent: "from-sky-500 to-blue-600"
+    accent: "from-blue-600 to-electric-accent"
   },
   {
     step: "02",
@@ -20,7 +20,7 @@ const steps = [
     desc: "I build responsive UI components, write secure modular backend endpoints, configure JWT authentication, and provide live preview staging environments for real-time client feedback.",
     deliverables: ["Modular React.js Components", "Secure RESTful Backend", "Responsive Mobile-First UI", "Weekly Milestone Previews"],
     icon: Code2,
-    accent: "from-blue-500 to-indigo-600"
+    accent: "from-electric-accent to-sky-500"
   },
   {
     step: "03",
@@ -29,7 +29,7 @@ const steps = [
     desc: "Every endpoint and screen is tested across devices. We audit Core Web Vitals, implement technical SEO tags, optimize image payloads, and sanitize inputs against SQL injection and XSS.",
     deliverables: ["Cross-Device UI Testing", "Core Web Vitals Audit", "Input Security Sanitization", "Speed & Payload Optimization"],
     icon: ShieldCheck,
-    accent: "from-indigo-500 to-violet-600"
+    accent: "from-indigo-600 to-blue-500"
   },
   {
     step: "04",
@@ -38,15 +38,16 @@ const steps = [
     desc: "We push to production cloud hosting (Vercel, VPS, cPanel), configure SSL HTTPS certificates, hand over full source code ownership, and provide 30 days of complimentary warranty support.",
     deliverables: ["Production Cloud / VPS Setup", "Free SSL & Domain Routing", "Clean Git Repository Handover", "30-Day Post-Launch Warranty"],
     icon: Rocket,
-    accent: "from-emerald-500 to-teal-600"
+    accent: "from-emerald-500 to-teal-500"
   }
 ];
 
 export default function Process() {
   return (
-    <section id="process" className="py-24 bg-white text-slate-800 border-t border-slate-200 relative overflow-hidden">
+    <section id="process" className="py-24 bg-navy-950 text-tech-offwhite border-t border-slate-800/80 relative overflow-hidden">
       {/* Subtle Ambient Background Details */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-sky-100/30 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-electric-accent/10 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-25 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -58,14 +59,14 @@ export default function Process() {
           transition={{ duration: 0.4 }}
           className="max-w-3xl mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-600 animate-pulse"></span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-electric-accent/15 border border-electric-accent/30 text-electric-300 text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-electric-accent animate-pulse"></span>
             Engineering Methodology
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-tech-offwhite tracking-tight leading-tight">
             How I turn ideas into reliable production platforms.
           </h2>
-          <p className="mt-4 text-base text-slate-600 leading-relaxed">
+          <p className="mt-4 text-base text-tech-slate leading-relaxed">
             A transparent, disciplined 4-step engineering workflow ensuring predictable delivery, high code quality, and zero surprises.
           </p>
         </motion.div>
@@ -84,43 +85,43 @@ export default function Process() {
               >
                 <TiltCard
                   maxTilt={6}
-                  glowColor="rgba(56, 189, 248, 0.15)"
-                  className="group relative flex flex-col justify-between h-full p-6 sm:p-7 rounded-2xl bg-surface-50 border border-slate-200/90 hover:border-sky-400 hover:shadow-card-hover transition-all duration-300"
+                  glowColor="rgba(37, 99, 235, 0.22)"
+                  className="group relative flex flex-col justify-between h-full p-6 sm:p-7 rounded-2xl bg-navy-900/90 border border-slate-800 hover:border-electric-accent hover:shadow-card-hover transition-all duration-300 shadow-card-dark"
                 >
                   <div>
                     {/* Top Step Number & Icon */}
                     <div className="flex items-center justify-between mb-5">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.accent} text-white flex items-center justify-center shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.accent} text-white flex items-center justify-center shadow-glow-sm group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
                         <Icon className="w-6 h-6" />
                       </div>
 
-                      <span className="font-mono text-xl font-black text-slate-300 group-hover:text-sky-500 transition-colors select-none">
+                      <span className="font-mono text-xl font-black text-slate-500 group-hover:text-electric-300 transition-colors select-none">
                         {item.step}
                       </span>
                     </div>
 
                     {/* Step Title & Tagline */}
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-sky-600 transition-colors mb-1 leading-snug">
+                    <h3 className="text-base font-bold text-tech-offwhite group-hover:text-electric-300 transition-colors mb-1 leading-snug">
                       {item.title}
                     </h3>
-                    <p className="text-xs font-semibold text-sky-600 mb-3">
+                    <p className="text-xs font-semibold text-electric-400 mb-3">
                       {item.tagline}
                     </p>
 
                     {/* Description */}
-                    <p className="text-xs text-slate-600 leading-relaxed mb-5">
+                    <p className="text-xs text-tech-slate leading-relaxed mb-5">
                       {item.desc}
                     </p>
                   </div>
 
                   {/* Deliverables Checklist */}
-                  <div className="pt-4 border-t border-slate-200/80 mt-auto space-y-1.5">
+                  <div className="pt-4 border-t border-slate-800 mt-auto space-y-1.5">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
                       Key Deliverables:
                     </span>
                     {item.deliverables.map((deliv, dIdx) => (
-                      <div key={dIdx} className="flex items-center gap-2 text-xs text-slate-700">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                      <div key={dIdx} className="flex items-center gap-2 text-xs text-slate-300">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                         <span className="truncate">{deliv}</span>
                       </div>
                     ))}
