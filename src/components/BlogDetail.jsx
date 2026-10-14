@@ -15,10 +15,284 @@ import {
   Send,
   Linkedin,
   Twitter,
-  MessageSquare
+  MessageSquare,
+  AlertTriangle,
+  Info
 } from 'lucide-react';
 import { getBlogBySlug, getRelatedBlogs } from '../data/blogs';
 import { personalInfo } from '../data/portfolioData';
+
+// --- ROBUST INLINE MARKDOWN TOKENIZER ---
+// Parses `code`, **bold**, *italic*, [link](url), and handles nested formatting cleanly
+function tokenizeInline(text) {
+  if (!text) return [];
+  // Match `inline code`, **bold**, *italic*, [link](url), and escaped \$
+  const regex = /(`[^`]+`|\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^)]+\)|\\\$)/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({ type: 'text', value: text.substring(lastIndex, match.index) });
+    }
+    const token = match[0];
+    if (token.startsWith('`') && token.endsWith('`')) {
+      parts.push({ type: 'code', value: token.slice(1, -1) });
+    } else if (token.startsWith('**') && token.endsWith('**')) {
+      const inner = token.slice(2, -2);
+      if (inner.includes('`') || inner.includes('*') || inner.includes('[')) {
+        parts.push({ type: 'bold_nested', children: tokenizeInline(inner) });
+      } else {
+        parts.push({ type: 'bold', value: inner });
+      }
+    } else if (token.startsWith('*') && token.endsWith('*')) {
+      parts.push({ type: 'italic', value: token.slice(1, -1) });
+    } else if (token.startsWith('[') && token.includes('](')) {
+      const closingBracket = token.indexOf('](');
+      const linkText = token.slice(1, closingBracket);
+      const url = token.slice(closingBracket + 2, -1);
+      parts.push({ type: 'link', text: linkText, url });
+    } else if (token === '\\$') {
+      parts.push({ type: 'text', value: '$' });
+    }
+    lastIndex = match.index + token.length;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push({ type: 'text', value: text.substring(lastIndex) });
+  }
+
+  return parts;
+}
+
+function renderInlineTokens(text) {
+  if (!text) return null;
+  const tokens = tokenizeInline(text);
+
+  return tokens.map((token, idx) => {
+    switch (token.type) {
+      case 'bold':
+        return (
+          <strong key={idx} className="font-bold text-white tracking-wide">
+            {token.value}
+          </strong>
+        );
+      case 'bold_nested':
+        return (
+          <strong key={idx} className="font-bold text-white tracking-wide">
+            {token.children.map((child, cIdx) => {
+              if (child.type === 'code') {
+                return (
+                  <code
+                    key={cIdx}
+                    className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-electric-300 font-mono text-xs sm:text-[13px] font-semibold"
+                  >
+                    {child.value}
+                  </code>
+                );
+              }
+              if (child.type === 'italic') {
+                return <em key={cIdx} className="italic text-slate-200">{child.value}</em>;
+              }
+              return child.value;
+            })}
+          </strong>
+        );
+      case 'italic':
+        return (
+          <em key={idx} className="italic text-slate-200">
+            {token.value}
+          </em>
+        );
+      case 'code':
+        return (
+          <code
+            key={idx}
+            className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-electric-300 font-mono text-xs sm:text-[13px] font-semibold"
+          >
+            {token.value}
+          </code>
+        );
+      case 'link':
+        return (
+          <a
+            key={idx}
+            href={token.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-electric-300 hover:text-white underline underline-offset-4 decoration-electric-accent/50 hover:decoration-white font-medium transition-colors"
+          >
+            {token.text}
+          </a>
+        );
+      default:
+        return token.value;
+    }
+  });
+}
+
+// --- STRUCTURED MARKDOWN BLOCK PARSER ---
+function parseMarkdownBlocks(rawText) {
+  const lines = rawText.split('\n');
+  const blocks = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
+    const trimmed = line.trim();
+
+    // 1. Skip empty lines
+    if (!trimmed) {
+      i++;
+      continue;
+    }
+
+    // 2. Code Block: ```lang ... ```
+    if (trimmed.startsWith('```')) {
+      const lang = trimmed.replace('```', '').trim() || 'code';
+      const codeLines = [];
+      i++;
+      while (i < lines.length && !lines[i].trim().startsWith('```')) {
+        codeLines.push(lines[i]);
+        i++;
+      }
+      i++; // skip closing ```
+      blocks.push({
+        type: 'code',
+        lang,
+        code: codeLines.join('\n')
+      });
+      continue;
+    }
+
+    // 3. Headings
+    if (trimmed.startsWith('#### ')) {
+      blocks.push({ type: 'h4', text: trimmed.replace(/^####\s+/, '') });
+      i++;
+      continue;
+    }
+    if (trimmed.startsWith('### ')) {
+      blocks.push({ type: 'h3', text: trimmed.replace(/^###\s+/, '') });
+      i++;
+      continue;
+    }
+    if (trimmed.startsWith('## ')) {
+      blocks.push({ type: 'h2', text: trimmed.replace(/^##\s+/, '') });
+      i++;
+      continue;
+    }
+    if (trimmed.startsWith('# ')) {
+      blocks.push({ type: 'h1', text: trimmed.replace(/^#\s+/, '') });
+      i++;
+      continue;
+    }
+
+    // 4. Horizontal Rule
+    if (trimmed === '---' || trimmed === '***') {
+      blocks.push({ type: 'hr' });
+      i++;
+      continue;
+    }
+
+    // 5. Table: lines starting with |
+    if (trimmed.startsWith('|')) {
+      const tableLines = [];
+      while (i < lines.length && lines[i].trim().startsWith('|')) {
+        tableLines.push(lines[i].trim());
+        i++;
+      }
+      if (tableLines.length >= 2) {
+        // Line 0: Header
+        const headerRow = tableLines[0]
+          .split('|')
+          .map((c) => c.trim())
+          .filter((c) => c.length > 0);
+        // Line 1 is separator (:--- | :---)
+        // Subsequent lines are rows
+        const dataRows = tableLines.slice(2).map((r) => {
+          return r
+            .split('|')
+            .map((c) => c.trim())
+            .filter((_, idx, arr) => idx > 0 && idx < arr.length - 1);
+        });
+        blocks.push({
+          type: 'table',
+          headers: headerRow,
+          rows: dataRows
+        });
+      }
+      continue;
+    }
+
+    // 6. Blockquote / Callout
+    if (trimmed.startsWith('>')) {
+      const quoteLines = [];
+      while (i < lines.length && lines[i].trim().startsWith('>')) {
+        quoteLines.push(lines[i].trim().replace(/^>\s*/, ''));
+        i++;
+      }
+      blocks.push({
+        type: 'quote',
+        text: quoteLines.join(' ')
+      });
+      continue;
+    }
+
+    // 7. Unordered List (- or *)
+    if (/^[-*]\s+/.test(trimmed)) {
+      const items = [];
+      while (i < lines.length && /^[-*]\s+/.test(lines[i].trim())) {
+        items.push(lines[i].trim().replace(/^[-*]\s+/, ''));
+        i++;
+      }
+      blocks.push({
+        type: 'ul',
+        items
+      });
+      continue;
+    }
+
+    // 8. Ordered List (1. , 2. )
+    if (/^\d+\.\s+/.test(trimmed)) {
+      const items = [];
+      while (i < lines.length && /^\d+\.\s+/.test(lines[i].trim())) {
+        items.push(lines[i].trim().replace(/^\d+\.\s+/, ''));
+        i++;
+      }
+      blocks.push({
+        type: 'ol',
+        items
+      });
+      continue;
+    }
+
+    // 9. Regular Paragraph (group consecutive non-empty lines)
+    const paragraphLines = [];
+    while (
+      i < lines.length &&
+      lines[i].trim().length > 0 &&
+      !lines[i].trim().startsWith('#') &&
+      !lines[i].trim().startsWith('```') &&
+      !lines[i].trim().startsWith('>') &&
+      !lines[i].trim().startsWith('|') &&
+      !/^[-*]\s+/.test(lines[i].trim()) &&
+      !/^\d+\.\s+/.test(lines[i].trim()) &&
+      lines[i].trim() !== '---'
+    ) {
+      paragraphLines.push(lines[i].trim());
+      i++;
+    }
+    if (paragraphLines.length > 0) {
+      blocks.push({
+        type: 'p',
+        text: paragraphLines.join(' ')
+      });
+    }
+  }
+
+  return blocks;
+}
 
 export default function BlogDetail({ slug, onNavigateBlog, onBackToPortfolio }) {
   const [copiedLink, setCopiedLink] = useState(false);
@@ -140,6 +414,12 @@ export default function BlogDetail({ slug, onNavigateBlog, onBackToPortfolio }) 
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
+  const handleCopySnippet = (codeString, key) => {
+    navigator.clipboard.writeText(codeString);
+    setCopiedCodeSnippet(key);
+    setTimeout(() => setCopiedCodeSnippet(null), 2000);
+  };
+
   const handleShare = (platform) => {
     const url = encodeURIComponent(`${window.location.origin}/blog/${blog.slug}`);
     const text = encodeURIComponent(`Check out "${blog.title}" by Md Rahmatullah Quraishi:`);
@@ -152,36 +432,168 @@ export default function BlogDetail({ slug, onNavigateBlog, onBackToPortfolio }) 
     }
   };
 
-  // Simple Markdown-style section parser
-  const renderFormattedContent = (rawText) => {
-    const lines = rawText.split('\n');
-    const elements = [];
-    let currentCodeBlock = null;
-    let codeLanguage = '';
+  // Render Full Content with Structured Blocks
+  const renderContentBlocks = (rawText) => {
+    const blocks = parseMarkdownBlocks(rawText);
 
-    lines.forEach((line, index) => {
-      // Code block start
-      if (line.startsWith('```')) {
-        if (currentCodeBlock === null) {
-          codeLanguage = line.replace('```', '').trim() || 'code';
-          currentCodeBlock = [];
-        } else {
-          // Code block end
-          const codeString = currentCodeBlock.join('\n');
-          const codeKey = `code-${index}`;
-          elements.push(
-            <div key={codeKey} className="my-6 rounded-xl overflow-hidden border border-slate-800 bg-navy-950/95 shadow-xl">
-              <div className="flex items-center justify-between px-4 py-2 bg-slate-900/90 border-b border-slate-800 text-xs font-mono text-slate-400">
-                <span className="uppercase text-electric-300 font-bold">{codeLanguage}</span>
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(codeString);
-                    setCopiedCodeSnippet(codeKey);
-                    setTimeout(() => setCopiedCodeSnippet(null), 2000);
-                  }}
-                  className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+    return blocks.map((block, idx) => {
+      switch (block.type) {
+        // H2 Heading: Clean typography, vertical electric pill, NO tacky '#' symbol!
+        case 'h2': {
+          // Find matching TOC ID if available
+          const matchingToc = blog.tableOfContents?.find(
+            (t) =>
+              t.title.toLowerCase().trim() === block.text.toLowerCase().trim() ||
+              block.text.toLowerCase().includes(t.title.toLowerCase())
+          );
+          const headingId =
+            matchingToc?.id ||
+            block.text
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, '-')
+              .replace(/(^-|-$)/g, '');
+
+          return (
+            <h2
+              key={`h2-${idx}`}
+              id={headingId}
+              className="text-xl sm:text-2xl md:text-[26px] font-extrabold text-white mt-12 mb-5 pb-3 border-b border-slate-800 flex items-center gap-3 scroll-mt-28 tracking-tight"
+            >
+              <span className="w-1.5 h-6 rounded-full bg-gradient-to-b from-blue-500 to-electric-accent shrink-0 shadow-glow-sm" />
+              <span>{renderInlineTokens(block.text)}</span>
+            </h2>
+          );
+        }
+
+        // H3 Subheading
+        case 'h3':
+          return (
+            <h3
+              key={`h3-${idx}`}
+              className="text-lg sm:text-xl font-bold text-slate-100 mt-8 mb-3 flex items-center gap-2.5 tracking-tight"
+            >
+              <span className="w-2 h-2 rounded-full bg-electric-accent shrink-0 shadow-glow-sm" />
+              <span>{renderInlineTokens(block.text)}</span>
+            </h3>
+          );
+
+        // H4 Minor Subheading
+        case 'h4':
+          return (
+            <h4
+              key={`h4-${idx}`}
+              className="text-base sm:text-lg font-bold text-slate-200 mt-6 mb-2"
+            >
+              {renderInlineTokens(block.text)}
+            </h4>
+          );
+
+        // Unordered List: Grouped items with glowing electric bullet dots
+        case 'ul':
+          return (
+            <ul key={`ul-${idx}`} className="my-5 space-y-3 pl-1">
+              {block.items.map((item, itemIdx) => (
+                <li
+                  key={itemIdx}
+                  className="flex items-start gap-3 text-slate-300 text-sm sm:text-base leading-relaxed"
                 >
-                  {copiedCodeSnippet === codeKey ? (
+                  <span className="w-1.5 h-1.5 rounded-full bg-electric-accent mt-2 shrink-0 shadow-glow-sm" />
+                  <div className="flex-1">{renderInlineTokens(item)}</div>
+                </li>
+              ))}
+            </ul>
+          );
+
+        // Ordered List: Grouped items with circular number badges
+        case 'ol':
+          return (
+            <ol key={`ol-${idx}`} className="my-5 space-y-3 pl-1">
+              {block.items.map((item, itemIdx) => (
+                <li
+                  key={itemIdx}
+                  className="flex items-start gap-3 text-slate-300 text-sm sm:text-base leading-relaxed"
+                >
+                  <span className="flex items-center justify-center w-5 h-5 rounded-full bg-electric-accent/15 border border-electric-accent/30 text-electric-300 font-mono text-xs font-bold shrink-0 mt-0.5">
+                    {itemIdx + 1}
+                  </span>
+                  <div className="flex-1">{renderInlineTokens(item)}</div>
+                </li>
+              ))}
+            </ol>
+          );
+
+        // Callout Box: Distinguishes Critical Notes vs Tips vs Info
+        case 'quote': {
+          const isCritical =
+            block.text.toLowerCase().includes('critical') ||
+            block.text.toLowerCase().includes('warning') ||
+            block.text.toLowerCase().includes('caution');
+          const isTip =
+            block.text.toLowerCase().includes('tip:') ||
+            block.text.toLowerCase().includes('best practice');
+
+          if (isCritical) {
+            return (
+              <div
+                key={`quote-${idx}`}
+                className="my-6 p-4 sm:p-5 rounded-2xl border-l-4 border-amber-500 bg-amber-500/10 text-slate-200 text-sm leading-relaxed shadow-sm"
+              >
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                  <div className="flex-1">{renderInlineTokens(block.text)}</div>
+                </div>
+              </div>
+            );
+          }
+
+          if (isTip) {
+            return (
+              <div
+                key={`quote-${idx}`}
+                className="my-6 p-4 sm:p-5 rounded-2xl border-l-4 border-emerald-500 bg-emerald-500/10 text-slate-200 text-sm leading-relaxed shadow-sm"
+              >
+                <div className="flex items-start gap-3">
+                  <Sparkles className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <div className="flex-1">{renderInlineTokens(block.text)}</div>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div
+              key={`quote-${idx}`}
+              className="my-6 p-4 sm:p-5 rounded-2xl border-l-4 border-electric-accent bg-electric-accent/10 text-slate-200 text-sm leading-relaxed shadow-sm"
+            >
+              <div className="flex items-start gap-3">
+                <Info className="w-5 h-5 text-electric-300 shrink-0 mt-0.5" />
+                <div className="flex-1">{renderInlineTokens(block.text)}</div>
+              </div>
+            </div>
+          );
+        }
+
+        // Code Blocks with macOS dots, language pill & Copy button
+        case 'code':
+          return (
+            <div
+              key={`code-${idx}`}
+              className="my-6 rounded-2xl overflow-hidden border border-slate-800 bg-navy-950/95 shadow-xl"
+            >
+              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 text-xs font-mono text-slate-400">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+                  <span className="ml-2 uppercase text-electric-300 font-bold tracking-wider">
+                    {block.lang}
+                  </span>
+                </div>
+                <button
+                  onClick={() => handleCopySnippet(block.code, `code-${idx}`)}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors text-xs font-medium"
+                >
+                  {copiedCodeSnippet === `code-${idx}` ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-emerald-400" />
                       <span className="text-emerald-400">Copied!</span>
@@ -189,105 +601,77 @@ export default function BlogDetail({ slug, onNavigateBlog, onBackToPortfolio }) 
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5" />
-                      <span>Copy</span>
+                      <span>Copy Code</span>
                     </>
                   )}
                 </button>
               </div>
-              <pre className="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto leading-relaxed">
-                <code>{codeString}</code>
+              <pre className="p-4 sm:p-5 text-xs sm:text-[13px] font-mono text-slate-200 overflow-x-auto leading-relaxed scrollbar-thin">
+                <code>{block.code}</code>
               </pre>
             </div>
           );
-          currentCodeBlock = null;
-          codeLanguage = '';
-        }
-        return;
-      }
 
-      if (currentCodeBlock !== null) {
-        currentCodeBlock.push(line);
-        return;
-      }
+        // Markdown Table: Fully styled HTML table with headers and alternating rows
+        case 'table':
+          return (
+            <div
+              key={`table-${idx}`}
+              className="my-8 overflow-hidden rounded-2xl border border-slate-800 bg-navy-900/60 shadow-xl backdrop-blur-sm"
+            >
+              <div className="overflow-x-auto scrollbar-thin">
+                <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                  <thead className="bg-slate-900/90 border-b border-slate-800 text-slate-200 uppercase tracking-wider font-mono text-[11px] sm:text-xs">
+                    <tr>
+                      {block.headers.map((cell, cIdx) => (
+                        <th
+                          key={cIdx}
+                          className="px-5 py-3.5 font-bold text-tech-offwhite whitespace-nowrap"
+                        >
+                          {renderInlineTokens(cell)}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60">
+                    {block.rows.map((rowCells, rIdx) => (
+                      <tr
+                        key={rIdx}
+                        className="hover:bg-slate-800/30 transition-colors"
+                      >
+                        {rowCells.map((cell, cIdx) => (
+                          <td
+                            key={cIdx}
+                            className="px-5 py-3.5 text-slate-300 leading-normal"
+                          >
+                            {renderInlineTokens(cell)}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
 
-      // H2 Headings
-      if (line.startsWith('## ')) {
-        const titleText = line.replace('## ', '');
-        const headingId = titleText
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/(^-|-$)/g, '');
-        elements.push(
-          <h2
-            key={`h2-${index}`}
-            id={headingId}
-            className="text-xl sm:text-2xl font-bold text-white mt-10 mb-4 pb-2 border-b border-slate-800/80 flex items-center gap-2 group scroll-mt-24"
-          >
-            <span className="text-electric-accent">#</span>
-            <span>{titleText}</span>
-          </h2>
-        );
-        return;
-      }
+        // Horizontal Divider
+        case 'hr':
+          return <hr key={`hr-${idx}`} className="my-10 border-slate-800/80" />;
 
-      // H3 Headings
-      if (line.startsWith('### ')) {
-        elements.push(
-          <h3 key={`h3-${index}`} className="text-lg sm:text-xl font-bold text-slate-200 mt-6 mb-3">
-            {line.replace('### ', '')}
-          </h3>
-        );
-        return;
-      }
-
-      // Blockquotes & Callouts
-      if (line.startsWith('> ')) {
-        elements.push(
-          <blockquote key={`quote-${index}`} className="my-4 p-4 rounded-xl border-l-4 border-electric-accent bg-electric-accent/10 text-slate-300 text-sm italic">
-            {line.replace('> ', '')}
-          </blockquote>
-        );
-        return;
-      }
-
-      // Tables (simple markdown parser)
-      if (line.startsWith('|')) {
-        // Table lines are grouped in raw markdown, rendered cleanly
-        elements.push(
-          <div key={`table-line-${index}`} className="font-mono text-xs text-slate-300 overflow-x-auto my-0.5">
-            {line}
-          </div>
-        );
-        return;
-      }
-
-      // Horizontal dividers
-      if (line.trim() === '---') {
-        elements.push(<hr key={`hr-${index}`} className="my-8 border-slate-800" />);
-        return;
-      }
-
-      // Bullet points
-      if (line.startsWith('- ') || line.startsWith('* ')) {
-        elements.push(
-          <li key={`li-${index}`} className="ml-6 list-disc text-slate-300 text-sm sm:text-base my-1 leading-relaxed">
-            {line.substring(2)}
-          </li>
-        );
-        return;
-      }
-
-      // Standard paragraphs
-      if (line.trim().length > 0) {
-        elements.push(
-          <p key={`p-${index}`} className="text-slate-300 text-sm sm:text-base leading-relaxed my-3">
-            {line}
-          </p>
-        );
+        // Standard Paragraph
+        case 'p':
+        default:
+          return (
+            <p
+              key={`p-${idx}`}
+              className="text-slate-300 text-sm sm:text-base leading-relaxed my-4"
+            >
+              {renderInlineTokens(block.text)}
+            </p>
+          );
       }
     });
-
-    return elements;
   };
 
   return (
@@ -415,7 +799,7 @@ export default function BlogDetail({ slug, onNavigateBlog, onBackToPortfolio }) 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Main Article Body (8 cols) */}
           <article className="lg:col-span-8 bg-navy-900/40 p-6 sm:p-8 rounded-2xl border border-slate-800/80 shadow-2xl backdrop-blur-sm">
-            {renderFormattedContent(blog.content)}
+            {renderContentBlocks(blog.content)}
 
             {/* Keyword Tags Footer */}
             <div className="mt-12 pt-6 border-t border-slate-800">

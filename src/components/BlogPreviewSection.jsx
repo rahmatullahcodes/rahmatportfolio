@@ -103,3 +103,4 @@ export default function BlogPreviewSection({ onOpenBlogList, onSelectBlog }) {
     </section>
   );
 }
+

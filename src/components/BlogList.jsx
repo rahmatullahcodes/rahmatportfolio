@@ -339,3 +339,4 @@ export default function BlogList({ onSelectBlog, onBackToPortfolio }) {
     </div>
   );
 }
+

@@ -966,3 +966,4 @@ Laravel Horizon provides a real-time dashboard and code-driven configuration for
     `
   }
 ];
+
